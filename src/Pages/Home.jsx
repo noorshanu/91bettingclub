@@ -5,6 +5,7 @@ import Notification from "../sections/Notification";
 import WinInfo from "../sections/WinInfo";
 import EranInfo from "../sections/EranInfo";
 import Footer from "../sections/Footer";
+import WinStage from "../sections/WinStage";
 
 function Home() {
   return (
@@ -20,6 +21,10 @@ function Home() {
 
       <div className=" mt-4">
        <WinInfo/>
+      </div>
+      <div className="mt-4">
+        <WinStage/>
+
       </div>
       <div className=" mt-4">
        <EranInfo/>
