@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .container-wrapper {
+    @apply max-w-[1240px] w-[90%] mx-auto;
+  }
+}
+
+
+body{
+width: 500px;
+
+
+  background-color: #9195a3;
+  margin: auto;
+}
+
+@media (max-width:768px) {
+  body{
+    width: 100%;
+  }
+  
+}
