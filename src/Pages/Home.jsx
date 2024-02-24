@@ -9,10 +9,14 @@ import WinStage from "../sections/WinStage";
 
 function Home() {
   return (
-    <div className=" bg-[#ecedf4] p-4">
-      <div>
+   <>
+    <div className=" bg-[#ecedf4] ">
+    <div>
         <Navbar />
       </div>
+    </div>
+    <div className=" bg-[#ecedf4] px-4">
+     
       <Banner />
 
       <div className=" mt-4">
@@ -34,6 +38,7 @@ function Home() {
 
       </div>
     </div>
+   </>
   );
 }
 
