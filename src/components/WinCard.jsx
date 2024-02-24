@@ -22,8 +22,8 @@ function WinCard() {
       </div>
 
       <div>
-        <h1 className=" ">Receive $400.00</h1>
-        <p className="text-[#b0aeae]">Winning amount</p>
+        <h1 className="text-sm font-bold ">Receive $400.00</h1>
+        <p className="text-[#b0aeae] text-sm font-bold">Winning amount</p>
       </div>
     </div>
   </div>
