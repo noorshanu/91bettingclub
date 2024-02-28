@@ -30,7 +30,7 @@ function Hero() {
         </TabList>
 
         <TabPanel>
-          <div className=" my-6">
+          <div className=" my-6 px-4">
             <div className=" flex flex-col gap-2 my-4">
               <div className=" my-4 flex flex-col gap-2 ">
                 <label
@@ -67,7 +67,7 @@ function Hero() {
           </div>
         </TabPanel>
         <TabPanel>
-        <div className=" my-6">
+        <div className=" my-6 px-4">
             <div className=" flex flex-col gap-2 my-4">
               <div className=" my-4 flex flex-col gap-2 ">
                 <label
