@@ -105,9 +105,9 @@ function Hero() {
       </Tabs>
 
       <div className=" flex flex-col gap-4 justify-center items-center py-6 ">
-        <button className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px]">
+        <a href="/login" className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center">
           Login
-        </button>
+        </a>
         <a
           href="/signup"
           className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center"

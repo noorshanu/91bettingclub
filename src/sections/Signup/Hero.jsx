@@ -97,9 +97,9 @@ function Hero() {
         >
           Register
         </a>
-        <button className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px]">
+        <a href="/login" className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center">
           <span className=" font-light">I have an account</span> Login
-        </button>
+        </a>
       </div>
 
       <div className=" flex justify-evenly items-center mt-6 pb-1">
