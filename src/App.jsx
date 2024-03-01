@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
+import WinGo from "./sections/Games/WinGo";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<SignUp/>} />
+        <Route path="/wingo" element={<WinGo/>} />
 
      
         

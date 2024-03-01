@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import "react-tabs/style/react-tabs.css";
 
@@ -44,7 +45,7 @@ function Gamesecs() {
           </div>
           <div className="p-4">
             {activeTab === "lottery" && (
-              <div>
+              <Link to='/wingo'>
                 <div className=" flex justify-between items-center my-3   bg-red-400 border border-white rounded-lg">
                     <div className=" py-2 px-2">
                         <h2>Win Go</h2>
@@ -60,7 +61,7 @@ function Gamesecs() {
                     </div>
 
                 </div>
-              </div>
+              </Link>
             )}
             {activeTab === "noor" && <p>Content for Noor tab goes here.</p>}
             {activeTab === "king" && <p>Content for King tab goes here.</p>}
