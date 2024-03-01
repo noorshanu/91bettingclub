@@ -6,7 +6,7 @@ function Navbar() {
     <div className=' flex justify-between items-center'>
 
       <div>
-        91club
+       MyClub11
       </div>
 
       <div
