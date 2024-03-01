@@ -28,6 +28,22 @@ width: 500px;
     margin-bottom: -0.2rem;
     background: url(/public/images/stage-f0b7a560.png) no-repeat center center / 100% 100%;
 }
+@keyframes roll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-roll-up {
+  animation: roll-up 5s linear infinite;
+}
+
+.animate-none {
+  animation: none !important;
+}
 
 @media (max-width:768px) {
   body{

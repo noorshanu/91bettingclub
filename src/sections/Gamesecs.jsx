@@ -44,7 +44,23 @@ function Gamesecs() {
           </div>
           <div className="p-4">
             {activeTab === "lottery" && (
-              <p>Content for Lottery tab goes here.</p>
+              <div>
+                <div className=" flex justify-between items-center my-3   bg-red-400 border border-white rounded-lg">
+                    <div className=" py-2 px-2">
+                        <h2>Win Go</h2>
+
+                        <p>
+                        Guess Number
+                        </p>
+
+                        <p>Green/Red/Purple to win</p>
+                    </div>
+                    <div>
+                        <img src="images/ball.png" alt="" className=" w-auto h-[96px]" />
+                    </div>
+
+                </div>
+              </div>
             )}
             {activeTab === "noor" && <p>Content for Noor tab goes here.</p>}
             {activeTab === "king" && <p>Content for King tab goes here.</p>}
