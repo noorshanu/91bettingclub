@@ -6,6 +6,7 @@ import WinInfo from "../sections/WinInfo";
 import EranInfo from "../sections/EranInfo";
 import Footer from "../sections/Footer";
 import WinStage from "../sections/WinStage";
+import Gamesecs from "../sections/Gamesecs";
 
 function Home() {
   return (
@@ -21,6 +22,10 @@ function Home() {
 
       <div className=" mt-4">
         <Notification />
+      </div>
+      <div className=" mt-4">
+        <Gamesecs/>
+
       </div>
 
       <div className=" mt-4">
