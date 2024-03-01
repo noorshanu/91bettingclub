@@ -35,14 +35,9 @@ const RollingText = () => {
       <div id="rolling-text" className={`rolling-text ${isHovered ? 'animate-none' : 'animate-roll-up'}`}>
         {/* Initial text */}
         <p className=' my-2' >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.  </p> <br />
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit.   </p> 
 
-                <p className=' my-2' >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.  </p>
-                <p className=' my-2' >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.  </p>
-                <p className=' my-2' >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.  </p>
+               
       </div>
     </div>
   );

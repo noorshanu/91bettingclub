@@ -38,7 +38,7 @@ width: 500px;
 }
 
 .animate-roll-up {
-  animation: roll-up 5s linear infinite;
+  animation: roll-up 12s linear infinite;
 }
 
 .animate-none {
