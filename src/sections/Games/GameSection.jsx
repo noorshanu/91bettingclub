@@ -1,20 +1,18 @@
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect } from "react";
 
 function GameSection() {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
-
   useEffect(() => {
     const timer = setInterval(() => {
       // Increment seconds
-      setSeconds(prevSeconds => {
+      setSeconds((prevSeconds) => {
         if (prevSeconds === 59) {
           // Increment minutes when seconds reach 59
-          setMinutes(prevMinutes => prevMinutes + 1);
+          setMinutes((prevMinutes) => prevMinutes + 1);
           return 0; // Reset seconds to 0
         } else {
           return prevSeconds + 1;
@@ -64,15 +62,12 @@ function GameSection() {
 
       <div>
         <div className=" flex justify-between items-center ">
-
           <div>
             <div>
               <p>how to play</p>
             </div>
 
-            <h2>
-              win Go 1 min
-            </h2>
+            <h2>win Go 1 min</h2>
             <div>
               <img src="images/ball/ball8.png" alt="" />
             </div>
@@ -80,13 +75,35 @@ function GameSection() {
           <div>
             <h2>Time Remaining</h2>
             <div className="flex items-center justify-center w-full">
-      <div className="text-4xl font-bold">
-        {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
-      </div>
-    </div>
+              <div className="text-4xl font-bold">
+                {minutes.toString().padStart(2, "0")}:
+                {seconds.toString().padStart(2, "0")}
+              </div>
+            </div>
           </div>
-
         </div>
+      </div>
+
+      <div className=" flex justify-center items-center gap-6 w-full">
+
+        <div className=" bg-green-600 rounded-full py-2 px-6 shadow-md">
+          <h2 className=" text-lg font-semibold text-white">
+            Green
+          </h2>
+        </div>
+
+        <div className=" bg-[#b659fe] shadow-md rounded-full py-2 px-6">
+        <h2 className=" text-lg font-semibold text-white">
+            Violet
+          </h2>
+        </div>
+
+        <div className=" bg-[#fd565c] shadow-md rounded-full py-2 px-6">
+        <h2 className=" text-lg font-semibold text-white">
+            Red
+          </h2>
+        </div>
+
       </div>
     </div>
   );
