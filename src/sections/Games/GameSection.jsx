@@ -1,6 +1,8 @@
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import React, { useState, useEffect } from "react";
+import { MdOutlineSpeakerNotes } from "react-icons/md";
+import HowToPlay from "./HowToPlay";
 
 function GameSection() {
   const [minutes, setMinutes] = useState(0);
@@ -24,7 +26,7 @@ function GameSection() {
   }, []);
   return (
     <div className="mx-auto max-w-md flex flex-col items-start justify-between ">
-      <div>
+      <div className=" w-full my-4">
         <Tabs>
           <TabList>
             <Tab>
@@ -45,63 +47,274 @@ function GameSection() {
             </Tab>
           </TabList>
 
-          <TabPanel>
-            <h2>Any content 1</h2>
+          <TabPanel className="w-full">
+            <div className=" bg-white shadow-lg rounded-3xl p-4 w-full">
+              <div className=" flex justify-between items-center ">
+                <div>
+                  <div>
+                    <HowToPlay />
+                  </div>
+
+                  <h2 className=" font-medium  ml-3 text-sm">win Go 1 min</h2>
+                  <div className=" flex gap-2 items-center py-2 pr-4">
+                    <img
+                      src="images/ball/ball3.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball5.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball8.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball9.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball10.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h2>Time Remaining</h2>
+                  <div className="flex items-center justify-center w-full">
+                    <div className="text-4xl font-bold">
+                      {minutes.toString().padStart(2, "0")}:
+                      {seconds.toString().padStart(2, "0")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <div className=" bg-white shadow-lg rounded-3xl p-4 w-full">
+              <div className=" flex justify-between items-center ">
+                <div>
+                  <div>
+                    <HowToPlay />
+                  </div>
+
+                  <h2 className=" font-medium  ml-3 text-sm">win Go 1 min</h2>
+                  <div className=" flex gap-2 items-center py-2 pr-4">
+                    <img
+                      src="images/ball/ball3.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball5.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball8.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball9.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball10.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h2>Time Remaining</h2>
+                  <div className="flex items-center justify-center w-full">
+                    <div className="text-4xl font-bold">
+                      {minutes.toString().padStart(2, "0")}:
+                      {seconds.toString().padStart(2, "0")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 3</h2>
+            <div className=" bg-white shadow-lg rounded-3xl p-4 w-full">
+              <div className=" flex justify-between items-center ">
+                <div>
+                  <div>
+                    <HowToPlay />
+                  </div>
+
+                  <h2 className=" font-medium  ml-3 text-sm">win Go 1 min</h2>
+                  <div className=" flex gap-2 items-center py-2 pr-4">
+                    <img
+                      src="images/ball/ball3.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball5.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball8.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball9.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball10.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h2>Time Remaining</h2>
+                  <div className="flex items-center justify-center w-full">
+                    <div className="text-4xl font-bold">
+                      {minutes.toString().padStart(2, "0")}:
+                      {seconds.toString().padStart(2, "0")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 4</h2>
+            <div className=" bg-white shadow-lg rounded-3xl p-4 w-full">
+              <div className=" flex justify-between items-center ">
+                <div>
+                  <div>
+                    <HowToPlay />
+                  </div>
+
+                  <h2 className=" font-medium  ml-3 text-sm">win Go 1 min</h2>
+                  <div className=" flex gap-2 items-center py-2 pr-4">
+                    <img
+                      src="images/ball/ball3.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball5.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball8.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball9.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball10.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h2>Time Remaining</h2>
+                  <div className="flex items-center justify-center w-full">
+                    <div className="text-4xl font-bold">
+                      {minutes.toString().padStart(2, "0")}:
+                      {seconds.toString().padStart(2, "0")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </TabPanel>
         </Tabs>
       </div>
 
-      <div>
-        <div className=" flex justify-between items-center ">
-          <div>
-            <div>
-              <p>how to play</p>
-            </div>
-
-            <h2>win Go 1 min</h2>
-            <div>
-              <img src="images/ball/ball8.png" alt="" />
-            </div>
-          </div>
-          <div>
-            <h2>Time Remaining</h2>
-            <div className="flex items-center justify-center w-full">
-              <div className="text-4xl font-bold">
-                {minutes.toString().padStart(2, "0")}:
-                {seconds.toString().padStart(2, "0")}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className=" flex justify-center items-center gap-6 w-full">
-
         <div className=" bg-green-600 rounded-full py-2 px-6 shadow-md">
-          <h2 className=" text-lg font-semibold text-white">
-            Green
-          </h2>
+          <h2 className=" text-lg font-semibold text-white">Green</h2>
         </div>
 
         <div className=" bg-[#b659fe] shadow-md rounded-full py-2 px-6">
-        <h2 className=" text-lg font-semibold text-white">
-            Violet
-          </h2>
+          <h2 className=" text-lg font-semibold text-white">Violet</h2>
         </div>
 
         <div className=" bg-[#fd565c] shadow-md rounded-full py-2 px-6">
-        <h2 className=" text-lg font-semibold text-white">
-            Red
-          </h2>
+          <h2 className=" text-lg font-semibold text-white">Red</h2>
+        </div>
+      </div>
+
+      <div className=" bg-gray-500 rounded-3xl p-4 my-2 w-full">
+
+        <div className=" grid grid-cols-5 gap-2 mx-auto">
+        <img
+                      src="images/ball/ball1.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball2.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball3.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball4.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball5.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+
+<img
+                      src="images/ball/ball6.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball7.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball8.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball9.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+                    <img
+                      src="images/ball/ball10.png"
+                      alt=""
+                      className=" h-[26px] w-auto"
+                    />
+
         </div>
 
       </div>
