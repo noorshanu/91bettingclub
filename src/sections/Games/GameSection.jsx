@@ -261,62 +261,88 @@ function GameSection() {
       </div>
 
       <div className=" bg-gray-500 rounded-3xl p-4 my-2 w-full">
-
         <div className=" grid grid-cols-5 gap-2 mx-auto">
-        <img
-                      src="images/ball/ball1.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-                    <img
-                      src="images/ball/ball2.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-                    <img
-                      src="images/ball/ball3.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-                    <img
-                      src="images/ball/ball4.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-                    <img
-                      src="images/ball/ball5.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
+          <img
+            src="images/ball/ball1.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
+          <img
+            src="images/ball/ball2.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
+          <img
+            src="images/ball/ball3.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
+          <img
+            src="images/ball/ball4.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
+          <img
+            src="images/ball/ball5.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
 
-<img
-                      src="images/ball/ball6.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-                    <img
-                      src="images/ball/ball7.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-                    <img
-                      src="images/ball/ball8.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-                    <img
-                      src="images/ball/ball9.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-                    <img
-                      src="images/ball/ball10.png"
-                      alt=""
-                      className=" h-[26px] w-auto"
-                    />
-
+          <img
+            src="images/ball/ball6.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
+          <img
+            src="images/ball/ball7.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
+          <img
+            src="images/ball/ball8.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
+          <img
+            src="images/ball/ball9.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
+          <img
+            src="images/ball/ball10.png"
+            alt=""
+            className=" h-[26px] w-auto"
+          />
         </div>
+      </div>
+      <div>
+        <div className=" flex items-center gap-0">
 
+          <div className=" rounded-full border ">
+              <p>Random</p>
+          </div>
+
+          <div className=" rounded-xl border ">
+              <p>1x</p>
+          </div>
+
+          <div className=" rounded-xl border ">
+              <p>5x</p>
+          </div>
+          <div className=" rounded-xl border ">
+              <p>10x</p>
+          </div>
+          <div className=" rounded-xl border ">
+              <p>20x</p>
+          </div>
+
+          <div className=" rounded-xl border ">
+              <p>50x</p>
+          </div>
+          <div className=" rounded-xl border ">
+              <p>100x</p>
+          </div>
+        </div>
       </div>
     </div>
   );
