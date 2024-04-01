@@ -3,6 +3,7 @@ import "react-tabs/style/react-tabs.css";
 import React, { useState, useEffect } from "react";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
 import HowToPlay from "./HowToPlay";
+import GameHistory from "./GameHistory";
 
 function GameSection() {
   const [minutes, setMinutes] = useState(0);
@@ -318,32 +319,34 @@ function GameSection() {
       <div>
         <div className=" flex items-center gap-0">
 
-          <div className=" rounded-full border ">
+          <div className=" rounded-full border border-black py-1 px-6 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>Random</p>
           </div>
 
-          <div className=" rounded-xl border ">
+          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>1x</p>
           </div>
 
-          <div className=" rounded-xl border ">
+          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>5x</p>
           </div>
-          <div className=" rounded-xl border ">
+          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>10x</p>
           </div>
-          <div className=" rounded-xl border ">
+          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>20x</p>
           </div>
 
-          <div className=" rounded-xl border ">
+          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>50x</p>
           </div>
-          <div className=" rounded-xl border ">
+          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>100x</p>
           </div>
         </div>
+        <GameHistory/>
       </div>
+   
     </div>
   );
 }
