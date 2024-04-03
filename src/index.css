@@ -8,6 +8,17 @@
   }
 }
 
+@font-face {
+  font-family: "ninja";
+  src: url("/fonts/ninja.ttf");
+}
+
+.font-ninja{
+  font-family: "ninja";
+}
+
+
+
 
 body{
 width: 500px;

@@ -11,27 +11,27 @@ function Footer() {
         </div>
 
         <div className=" flex justify-center flex-col text-center">
-        <a href="/" className=" text-center text-4xl">  <IoHome className=" text-center" /></a>
+        <a href="/activity" className=" text-center text-4xl">  <IoHome className=" text-center" /></a>
 
-          <h2 className=" text-center">Home</h2>
+          <h2 className=" text-center">Activity</h2>
         </div>
 
         <div className=" flex justify-center flex-col text-center">
         <a href="/" className=" text-center text-4xl">  <IoHome className=" text-center" /></a>
 
-          <h2 className=" text-center">Home</h2>
+          <h2 className=" text-center">Promotion</h2>
         </div>
 
         <div className=" flex justify-center flex-col text-center">
         <a href="/" className=" text-center text-4xl">  <IoHome className=" text-center" /></a>
 
-          <h2 className=" text-center">Home</h2>
+          <h2 className=" text-center">Wallet</h2>
         </div>
 
         <div className=" flex justify-center flex-col text-center">
         <a href="/" className=" text-center text-4xl">  <IoHome className=" text-center" /></a>
 
-          <h2 className=" text-center">Home</h2>
+          <h2 className=" text-center">Account</h2>
         </div>
       </div>
     </section>

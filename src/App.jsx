@@ -3,6 +3,7 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import WinGo from "./sections/Games/WinGo";
+import Activity from "./Pages/Activity";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/wingo" element={<WinGo/>} />
+        <Route path="/activity" element={<Activity/>} />
 
      
         
