@@ -109,7 +109,81 @@ const Promotion = () => {
         </div>
         <div className="data-v-d18c566e"></div>
       </div>
+      <div className="relative top-12 bg-[#f7f8ff] flex justify-center">
+        <button
+          className="text-white h-10  "
+          style={{
+            borderRadius: "2rem",
+            width: "25rem",
+            background: "linear-gradient(180deg, #ff867a 0%, #f95959 100%)",
+          }}
+        >
+          INVITATION LINK
+        </button>
+      </div>
+      <div className="relative top-12 pt-5 pb-3 bg-[#f7f8ff] flex flex-col gap-3 justify-center">
+        <div className="bg-white  mx-4 rounded-xl flex justify-between p-4">
+          <div className="flex justify-center gap-2 items-center">
+            <img width={"40px"} src="/images/promotion-link-one.png" />
+            <span>Copy Invitaion Code</span>
+          </div>
+          <div className="flex items-center">
+            <span>767523525021</span>
+            <img width={"35px"} src="/images/forward-arrow.png" />
+          </div>
+        </div>
 
+        <div className="bg-white  mx-4 rounded-xl flex justify-between p-4">
+          <div className="flex justify-center gap-2 items-center">
+            <img width={"40px"} src="/images/promotion-link-two.png" />
+            <span>Subordinate Data</span>
+          </div>
+          <div>
+            <img width={"35px"} src="/images/forward-arrow.png" />
+          </div>
+        </div>
+
+        <div className="bg-white  mx-4 rounded-xl flex justify-between p-4">
+          <div className="flex justify-center gap-2 items-center">
+            <img width={"40px"} src="/images/promotion-link-three.png" />
+            <span>Commision detail</span>
+          </div>
+          <div>
+            <img width={"35px"} src="/images/forward-arrow.png" />
+          </div>
+        </div>
+
+        <div className="bg-white  mx-4 rounded-xl flex justify-between p-4">
+          <div className="flex justify-center gap-2 items-center">
+            <img width={"40px"} src="/images/promotion-link-four.png" />
+            <span>Invitation rules</span>
+          </div>
+          <div>
+            <img width={"35px"} src="/images/forward-arrow.png" />
+          </div>
+        </div>
+
+        <div className="bg-white  mx-4 rounded-xl flex justify-between p-4">
+          <div className="flex justify-center gap-2 items-center">
+            <img width={"40px"} src="/images/promotion-link-five.png" />
+            <span>Agent line customer service</span>
+          </div>
+          <div>
+            <img width={"35px"} src="/images/forward-arrow.png" />
+          </div>
+        </div>
+
+        <div className="bg-white  mx-4 rounded-xl flex justify-between p-4">
+          <div className="flex justify-center gap-2 items-center">
+            <img width={"40px"} src="/images/promotion-link-six.png" />
+            <span>Rebate Ratio</span>
+          </div>
+          <div>
+            <img width={"35px"} src="/images/forward-arrow.png" />
+          </div>
+        </div>
+      </div>
+      <dl style={{ height: "150px" }} />
       <div className="mt-4">
         <Footer />
       </div>
