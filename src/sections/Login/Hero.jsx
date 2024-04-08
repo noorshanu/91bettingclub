@@ -14,17 +14,20 @@ function Hero() {
       <Tabs className=" bg-[#ecedf4] mt-4">
         <TabList>
           <Tab>
-            <div className=" text-center flex justify-center flex-col sm:flex-row gap-2">
-              <IoPhonePortrait className=" text-2xl text-center" />
-              <p className=" uppercase ">LOGIN With PHone</p>
+            <div className="w-52 text-center flex justify-center flex-col sm:flex-row gap-2">
+              <div className="flex flex-col items-center">
+                <IoPhonePortrait className=" text-2xl text-center" />
+                <p className=" uppercase ">LOGIN With Phone</p>
+              </div>
             </div>
           </Tab>
 
           <Tab>
-            <div className=" text-center flex justify-center flex-col sm:flex-row gap-4">
-              <MdMail className=" text-2xl text-center" />
-
-              <p className=" uppercase">login with email</p>
+            <div className="w-52 text-center flex justify-center flex-col sm:flex-row gap-4">
+              <div className="flex flex-col items-center">
+                <MdMail className=" text-2xl text-center" />
+                <p className=" uppercase">login with email</p>
+              </div>
             </div>
           </Tab>
         </TabList>
@@ -67,7 +70,7 @@ function Hero() {
           </div>
         </TabPanel>
         <TabPanel>
-        <div className=" my-6 px-4">
+          <div className=" my-6 px-4">
             <div className=" flex flex-col gap-2 my-4">
               <div className=" my-4 flex flex-col gap-2 ">
                 <label
@@ -105,7 +108,10 @@ function Hero() {
       </Tabs>
 
       <div className=" flex flex-col gap-4 justify-center items-center py-6 ">
-        <a href="/login" className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center">
+        <a
+          href="/login"
+          className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center"
+        >
           Login
         </a>
         <a

@@ -32,7 +32,7 @@ function Footer() {
         </div>
 
         <div className=" flex justify-center flex-col text-center">
-          <a href="/" className=" text-center text-4xl">
+          <a href="/wallet" className=" text-center text-4xl">
             {" "}
             <IoHome className=" text-center" />
           </a>
