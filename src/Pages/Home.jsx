@@ -7,7 +7,6 @@ import EranInfo from "../sections/EranInfo";
 import Footer from "../sections/Footer";
 import WinStage from "../sections/WinStage";
 import Gamesecs from "../sections/Gamesecs";
-import RollingText from "../sections/Rolling";
 
 function Home() {
   return (

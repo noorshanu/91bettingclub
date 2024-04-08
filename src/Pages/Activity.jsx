@@ -1,4 +1,3 @@
-import React from "react";
 import Footer from "../sections/Footer";
 
 const Activity = () => {
@@ -105,13 +104,17 @@ const Activity = () => {
           <div className={`overflow-hidden rounded-xl mb-4`}>
             <img src="/images/Banner_202403021314318bw3.png" />
             <div className="bg-white p-3">
-              <div className="font-bold capitalize">new member first deposit bonus</div>
+              <div className="font-bold capitalize">
+                new member first deposit bonus
+              </div>
             </div>
           </div>
           <div className={`overflow-hidden rounded-xl mb-4`}>
             <img src="/images/Banner_2024020413014726oj.png" />
             <div className="bg-white p-3">
-              <div className="font-bold capitalize">91CLUB Official Channel </div>
+              <div className="font-bold capitalize">
+                91CLUB Official Channel{" "}
+              </div>
             </div>
           </div>
           <div className={`overflow-hidden rounded-xl mb-4`}>

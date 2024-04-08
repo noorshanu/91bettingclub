@@ -13,31 +13,37 @@
   src: url("/fonts/ninja.ttf");
 }
 
-.font-ninja{
+.font-ninja {
   font-family: "ninja";
 }
 
+@font-face {
+  font-family: "helvetica";
+  src: url("/fonts/Helvetica.ttf");
+}
 
+.font-helvetica {
+  font-family: "helvetica";
+}
 
-
-body{
-width: 500px;
-
+body {
+  width: 500px;
 
   background-color: #9195a3;
   margin: auto;
 }
 
-.stage{
+.stage {
   position: relative;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    width: 100%;
-    height: 3.33333rem;
-    z-index: 1;
-    margin-bottom: -0.2rem;
-    background: url(/public/images/stage-f0b7a560.png) no-repeat center center / 100% 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  width: 100%;
+  height: 3.33333rem;
+  z-index: 1;
+  margin-bottom: -0.2rem;
+  background: url(/public/images/stage-f0b7a560.png) no-repeat center center /
+    100% 100%;
 }
 @keyframes roll-up {
   0% {
@@ -56,9 +62,20 @@ width: 500px;
   animation: none !important;
 }
 
-@media (max-width:768px) {
-  body{
+@media (max-width: 768px) {
+  body {
     width: 100%;
   }
-  
+}
+
+.data-v-d18c566e::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 6rem;
+  position: absolute;
+  background-color: #f7f8ff;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
 }
