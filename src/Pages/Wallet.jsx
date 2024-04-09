@@ -53,9 +53,56 @@ const Wallet = () => {
             }}
           >
             <div className="flex flex-col  items-center w-full">
-              <div className="text-black flex justify-between w-52 mx-4">
-                <div>Main Wallet</div>
-                <div>3rd Party</div>
+              <div className="text-black flex justify-between w-3/5 mx-4 my-8">
+                <div className="flex flex-col justify-center items-center">
+                  <div className="relative inline-block text-center">
+                    <svg
+                      height="100"
+                      width="100"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        r="45"
+                        cx="50"
+                        cy="50"
+                        stroke="#D8D8D8"
+                        strokeWidth="8"
+                        fill="none"
+                        opacity="0.5"
+                      />
+                    </svg>
+                    <div className="absolute top-[50%] translate-y-[-50%] w-full">
+                      0%
+                    </div>
+                  </div>
+                  <div>₹0.00</div>
+                  <div className="text-xs">Main Wallet</div>
+                </div>
+
+                <div className="flex flex-col justify-center items-center">
+                  <div className="relative inline-block text-center">
+                    <svg
+                      height="100"
+                      width="100"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        r="45"
+                        cx="50"
+                        cy="50"
+                        stroke="#D8D8D8"
+                        strokeWidth="8"
+                        fill="none"
+                        opacity="0.5"
+                      />
+                    </svg>
+                    <div className="absolute top-[50%] translate-y-[-50%] w-full">
+                      0%
+                    </div>
+                  </div>
+                  <div>₹0.00</div>
+                  <div className="text-xs">3rd Party Wallet</div>
+                </div>
               </div>
               <div>
                 <button
@@ -76,7 +123,7 @@ const Wallet = () => {
                   >
                     <img className="w-12" src="/images/deposit-wallet.png" />
                   </div>
-                  <div className="text-black">Deposit</div>
+                  <div className="text-black text-sm my-1">Deposit</div>
                 </div>
 
                 <div className="flex flex-col items-center">
@@ -86,7 +133,7 @@ const Wallet = () => {
                   >
                     <img className="w-12" src="/images/withdraw.png" />
                   </div>
-                  <div className="text-black">Withdraw</div>
+                  <div className="text-black text-sm my-1">Withdraw</div>
                 </div>
                 <div className="flex flex-col items-center">
                   <div
@@ -95,7 +142,9 @@ const Wallet = () => {
                   >
                     <img className="w-12" src="/images/deposit-history.png" />
                   </div>
-                  <div className="text-black text-center">Deposit history</div>
+                  <div className="text-black text-center text-sm my-1 w-20">
+                    Deposit history
+                  </div>
                 </div>
                 <div className="flex flex-col items-center">
                   <div
@@ -104,7 +153,7 @@ const Wallet = () => {
                   >
                     <img className="w-12" src="/images/withdraw-history.png" />
                   </div>
-                  <div className="text-black text-center">
+                  <div className="text-black text-center text-sm my-1 w-20 ">
                     Withdrawal history
                   </div>
                 </div>
