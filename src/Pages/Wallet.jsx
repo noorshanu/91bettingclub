@@ -174,7 +174,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">Lottery</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -187,7 +187,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">TB_Chess</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -200,7 +200,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">Wickets9</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -213,7 +213,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">JILI</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -226,7 +226,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">MG</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -239,7 +239,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">JDB</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -252,7 +252,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">EVO_Video</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -265,7 +265,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">TB</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -278,7 +278,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">Card365</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -291,7 +291,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">AG_Video</div>
           </div>
           <div
             className={`bg-white w-36 h-24 rounded-xl py-8 px-10 flex flex-col justify-center items-center`}
@@ -304,7 +304,7 @@ const Wallet = () => {
             }}
           >
             <div className="text-black text-xs">0.00</div>
-            <div className="text-gray-400">Lottery</div>
+            <div className="text-gray-400 text-sm">PG</div>
           </div>
         </div>
         <dl style={{ height: "4rem" }} />
