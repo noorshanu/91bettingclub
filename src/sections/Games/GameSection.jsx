@@ -16,6 +16,7 @@ function GameSection() {
         if (prevSeconds === 59) {
           // Increment minutes when seconds reach 59
           setMinutes((prevMinutes) => prevMinutes + 1);
+          
           return 0; // Reset seconds to 0
         } else {
           return prevSeconds + 1;

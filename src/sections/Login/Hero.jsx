@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoPhonePortrait } from "react-icons/io5";
@@ -7,8 +7,31 @@ import { IoIosPhonePortrait } from "react-icons/io";
 import { FaLock } from "react-icons/fa6";
 import { FcLock } from "react-icons/fc";
 import { FcOnlineSupport } from "react-icons/fc";
+import { useLoginUserMutation } from "../../redux/api/user/userApiSlice";
 
 function Hero() {
+  const [login] = useLoginUserMutation();
+
+  const initialState = {
+    username: "",
+    password: "",
+  };
+  const reducer = (state, action) => ({ ...state, ...action });
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleLogin = async () => {
+    try {
+      const data = login({
+        username: state.username,
+        password: state.password,
+      });
+      console.log(data);
+    } catch (error) {
+      // Handle validation errors
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Tabs className=" bg-[#ecedf4] mt-4">
@@ -40,14 +63,15 @@ function Hero() {
                   htmlFor="number"
                   className=" flex items-center gap-2 text-xl font-semibold"
                 >
-                  {" "}
-                  <IoIosPhonePortrait className="text-xl font-semibold" /> Phone
-                  number
+                  <IoIosPhonePortrait className="text-xl font-semibold" /> User
+                  Name
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name=""
                   id=""
+                  value={state.username}
+                  onChange={(e) => dispatch({ username: e.target.value })}
                   className=" bg-white py-2 px-4 rounded-full shadow-lg"
                 />
               </div>
@@ -56,13 +80,14 @@ function Hero() {
                   htmlFor="password"
                   className=" flex items-center gap-2 text-xl font-semibold"
                 >
-                  {" "}
                   <FaLock className="text-xl font-semibold" /> Password
                 </label>
                 <input
                   type="password"
                   name=""
                   id=""
+                  value={state.password}
+                  onChange={(e) => dispatch({ password: e.target.value })}
                   className=" bg-white py-2 px-4 rounded-full shadow-lg"
                 />
               </div>
@@ -109,7 +134,7 @@ function Hero() {
 
       <div className=" flex flex-col gap-4 justify-center items-center py-6 ">
         <a
-          href="/login"
+          onClick={handleLogin}
           className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center"
         >
           Login

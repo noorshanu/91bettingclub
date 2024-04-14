@@ -79,3 +79,15 @@ body {
   left: 0;
   z-index: 1;
 }
+
+.data-v-67fe8f9c::after {
+  content: "";
+  position: absolute;
+  left: 3%;
+  top: 2%;
+  background: linear-gradient(180deg, #ff5f5e 0%, #f64646 100%),
+    linear-gradient(0deg, #ffffff, #ffffff);
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 50%;
+}
