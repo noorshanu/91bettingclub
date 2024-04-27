@@ -6,7 +6,7 @@ function Navbar() {
     <div className=' flex justify-between items-center'>
 
       <div>
-       MyClub11
+      <img src="images/logo.png" alt=""  className=' h-[40px]'/>
       </div>
 
       <div
