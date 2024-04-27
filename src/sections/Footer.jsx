@@ -1,6 +1,9 @@
 import React from "react";
 import { IoHome } from "react-icons/io5";
+import { RxActivityLog } from "react-icons/rx";
 import bgImg from "../../public/images/footer-bg.png";
+import { FaWallet } from "react-icons/fa";
+import { MdManageAccounts } from "react-icons/md";
 
 function Footer() {
   return (
@@ -15,33 +18,34 @@ function Footer() {
     >
       <div className=" flex justify-center items-center gap-10 px-4">
         <div className=" flex justify-center flex-col text-center">
-          <a href="/" className=" text-center text-4xl">
+          <a href="/" className=" text-center ">
             {" "}
-            <IoHome className=" text-center" />
-          </a>
+            <IoHome className=" text-center text-xl mx-auto text-[#fd5847] hover:text-black" />
+          
 
-          <h2 className=" text-center">Home</h2>
+          <h2 className=" text-center font-semibold text-base hover:text-[#fd5847]">Home</h2>
+          </a>
         </div>
 
         <div className=" flex justify-center flex-col text-center">
-          <a href="/activity" className=" text-center text-4xl">
+          <a href="/activity" className=" text-center ">
             {" "}
-            <IoHome className=" text-center" />
-          </a>
+            <RxActivityLog className=" text-center text-xl mx-auto text-[#fd5847] hover:text-black" />
+        
 
-          <h2 className=" text-center">Activity</h2>
+          <h2 className=" text-center font-semibold text-base hover:text-[#fd5847]">Activity</h2>  </a>
         </div>
 
-        <div className=" flex justify-center items-center flex-col gap-3 text-center">
-          <a href="/promotion" className=" text-center text-4xl">
+        <div className=" flex justify-center items-center flex-col gap-3 text-center relative">
+          <a href="/promotion" className=" text-center text-3xl">
             <svg
               data-v-67fe8f9c=""
               xmlns="http://www.w3.org/2000/svg"
-              width="57"
-              height="49"
+              width="37"
+              height="39"
               fill="none"
               viewBox="0 0 57 49"
-              className={`z-20 relative  w-[3rem] h-[3rem]`}
+              className={`z-20 relative  w-[2.5rem] h-[2.5rem]`}
             >
               <path
                 fill="#fff"
@@ -51,26 +55,26 @@ function Footer() {
               ></path>
             </svg>
           </a>
-          <div className="data-v-67fe8f9c z-10 absolute top-[-16%] left-[43.5%] rounded-full  w-16 h-16 bg-white"></div>
-          <h2 className=" text-center">Promotion</h2>
+          <div className="data-v-67fe8f9c z-10 absolute -top-[15%] left-[9px] right-0 rounded-full  w-auto h-16 bg-white"></div>
+          <h2 className=" text-center font-semibold text-base hover:text-[#fd5847]">Promotion</h2>
         </div>
 
         <div className=" flex justify-center flex-col text-center">
           <a href="/wallet" className=" text-center text-4xl">
             {" "}
-            <IoHome className=" text-center" />
-          </a>
+            <FaWallet className="text-center text-xl mx-auto text-[#fd5847] hover:text-black" />
+        
 
-          <h2 className=" text-center">Wallet</h2>
+          <h2 className=" text-center font-semibold text-base hover:text-[#fd5847]">Wallet</h2>  </a>
         </div>
 
         <div className=" flex justify-center flex-col text-center">
           <a href="/main" className=" text-center text-4xl">
             {" "}
-            <IoHome className=" text-center" />
-          </a>
+            <MdManageAccounts className=" text-center text-2xl mx-auto text-[#fd5847] hover:text-black" />
+        
 
-          <h2 className=" text-center">Account</h2>
+          <h2 className=" text-center font-semibold text-base hover:text-[#fd5847]">Account</h2>  </a>
         </div>
       </div>
     </section>
