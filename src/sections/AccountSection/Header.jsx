@@ -2,7 +2,15 @@ import React from 'react'
 
 function Header() {
   return (
-    <div>Header</div>
+    <section>
+        <div className='flex items-center'>
+
+            <div>
+                <img src="images/" alt="" />
+            </div>
+
+        </div>
+    </section>
   )
 }
 
