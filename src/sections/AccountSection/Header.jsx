@@ -6,7 +6,7 @@ function Header() {
         <div className='flex items-center'>
 
             <div>
-                <img src="images/" alt="" />
+                <img src="images/logo.png" alt="" />
             </div>
 
         </div>
