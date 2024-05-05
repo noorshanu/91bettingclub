@@ -21,38 +21,46 @@ function Hero() {
     setPassword: "",
     confirmPassword: "",
   };
-  const reducer = (state, action) => ({ ...state, ...action });
+  const reducer = (state, action) => ({ ...state, [action.name]: action.value });
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // const [registerUser] = useRegisterUserMutation();
-
   const validationSchema = yup.object().shape({
-    phone: yup.string().required("Phone number is required"),
-    setPassword: yup.string().required("Password is required"),
+    phone: yup
+      .string()
+      .min(10, "Phone number must be at least 10 digits")
+      .max(15, "Phone number cannot exceed 15 digits")
+      .required("Phone number is required"),
+    setPassword: yup
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .max(32, "Password cannot exceed 32 characters")
+      .required("Password is required"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("setPassword"), null], "Passwords must match"),
   });
 
-  // Validate form data
-  const validateForm = async () => {
-    try {
-      await validationSchema.validate(state, { abortEarly: false });
-      setErrors({
-        phone: "",
-        setPassword: "",
-        confirmPassword: "",
+  const validateForm = (event) => {
+    event.preventDefault();
+    validationSchema
+      .validate(state, { abortEarly: false })
+      .then(() => {
+        setErrors({
+          phone: "",
+          setPassword: "",
+          confirmPassword: "",
+        });
+        // If validation succeeds, call your registration function
+        // registerUser(state);
+      })
+      .catch((error) => {
+        // Handle validation errors
+        const newErrors = {};
+        error.inner.forEach((err) => {
+          newErrors[err.path] = err.message;
+        });
+        setErrors(newErrors);
       });
-      // If validation succeeds, call your registration function
-      // registerUser(state);
-    } catch (error) {
-      // Handle validation errors
-      const newErrors = {};
-      error.inner.forEach((err) => {
-        newErrors[err.path] = err.message;
-      });
-      setErrors(newErrors);
-    }
   };
 
   return (
@@ -65,109 +73,72 @@ function Hero() {
         <div className=" flex flex-col gap-2 my-4">
           <div className=" my-4 flex flex-col gap-2 ">
             <label
-              htmlFor="number"
+              htmlFor="phone"
               className=" flex items-center gap-2 text-xl font-semibold"
             >
               {" "}
               <IoIosPhonePortrait className="text-2xl font-semibold" /> Phone
-              number hello
+              number
             </label>
             <input
-              type="number"
-              name=""
-              id=""
+              type="tel"
+              name="phone"
+              id="phone"
               value={state.phone}
-              onChange={(e) => dispatch({ phone: e.target.value })}
-              className=" bg-white py-2 px-4 rounded-full shadow-lg"
+              onChange={(e) => dispatch({ name: e.target.name, value: e.target.value })}
+              required
+              className=" bg-white rounded-md p-2 border-2 border-gray-300 focus:outline-none focus:border-indigo-500 transition duration-500"
             />
-            {errors.phone && <p className="text-red-500">{errors.phone}</p>}
+            {errors.phone && <p className=" text-red-500">{errors.phone}</p>}
           </div>
-          <div className=" my-4 flex flex-col gap-2 ">
+          <div className=" my-4 flex flex-col gap-2">
             <label
-              htmlFor="set-password"
+              htmlFor="setPassword"
               className=" flex items-center gap-2 text-xl font-semibold"
             >
-              <FaLock className="text-xl font-semibold" /> Set Password
+              <FaLock className="text-2xl font-semibold" /> Set a password
             </label>
             <input
               type="password"
-              name=""
-              id="set-password"
+              name="setPassword"
+              id="setPassword"
               value={state.setPassword}
-              onChange={(e) => dispatch({ setPassword: e.target.value })}
-              className=" bg-white py-2 px-4 rounded-full shadow-lg"
+              onChange={(e) => dispatch({ name: e.target.name, value: e.target.value })}
+              required
+              minLength="8"
+              maxLength="32"
+              className=" bg-white rounded-md p-2 border-2 border-gray-300 focus:outline-none focus:border-indigo-500 transition duration-500"
             />
-            {errors.setPassword && (
-              <p className="text-red-500">{errors.setPassword}</p>
-            )}
+            {errors.setPassword && <p className=" text-red-500">{errors.setPassword}</p>}
           </div>
-
-          <div className=" my-4 flex flex-col gap-2 ">
+          <div className=" my-4 flex flex-col gap-2">
             <label
-              htmlFor="confirm-password"
+              htmlFor="confirmPassword"
               className=" flex items-center gap-2 text-xl font-semibold"
             >
-              <FaLock className="text-xl font-semibold" /> Confirm Password
+              <FaLock className="text-2xl font-semibold" /> Confirm password
             </label>
             <input
               type="password"
-              name=""
-              id="confirm-password"
+              name="confirmPassword"
+              id="confirmPassword"
               value={state.confirmPassword}
-              onChange={(e) => dispatch({ confirmPassword: e.target.value })}
-              className=" bg-white py-2 px-4 rounded-full shadow-lg"
+              onChange={(e) => dispatch({ name: e.target.name, value: e.target.value })}
+              required
+              minLength="8"
+              maxLength="32"
+              className=" bg-white rounded-md p-2 border-2 border-gray-300 focus:outline-none focus:border-indigo-500 transition duration-500"
             />
-            {errors.confirmPassword && (
-              <p className="text-red-500">{errors.confirmPassword}</p>
-            )}
-          </div>
-
-          <div className=" my-4 flex flex-col gap-2 ">
-            <label
-              htmlFor="password"
-              className=" flex items-center gap-2 text-xl font-semibold"
-            >
-              {" "}
-              <IoMailOpenOutline className="text-xl font-semibold" /> Invite
-              code
-            </label>
-            <input
-              type="text"
-              name=""
-              id=""
-              className=" bg-white py-2 px-4 rounded-full shadow-lg"
-            />
-          </div>
-          <div className=" flex gap-2 items-center">
-            <input type="checkbox" className=" bg-white rounded-full py-2" />
-
-            <p>I have read and agree 【Privacy Agreement】</p>
+            {errors.confirmPassword && <p className=" text-red-500">{errors.confirmPassword}</p>}
           </div>
         </div>
-      </div>
-
-      <div className=" flex flex-col gap-4 justify-center items-center py-6 ">
-        <a
+        <button
+          type="submit"
           onClick={validateForm}
-          className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center"
+          className=" mt-6 bg-blue-500 hover:bg-blue-600 transition duration-500 rounded-md text-white font-semibold py-2 px-4 focus:outline-none focus:shadow-outline"
         >
           Register
-        </a>
-        <a
-          href="/login"
-          className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center"
-        >
-          <span className=" font-light">I have an account</span> Login
-        </a>
-      </div>
-
-      <div className=" flex justify-evenly items-center mt-6 pb-1">
-        <div>
-          <h1 className=" flex items-center gap-2 font-medium text-xl justify-center text-center flex-col uppercase">
-            {" "}
-            <FcOnlineSupport className="text-xl" /> Support
-          </h1>
-        </div>
+        </button>
       </div>
     </>
   );
