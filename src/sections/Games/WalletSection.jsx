@@ -4,8 +4,8 @@ function WalletSection() {
   return (
 <div className="mx-auto max-w-md flex items-start justify-between ">
     <div className=' w-full bg-white m-4 rounded-lg p-4'>
-        <h1 className=' text-center font-bold text-2xl'>0.00</h1>
-        <p className=' text-center font-bold text-lg'>Wallet balance</p>
+        <h1 className=' text-center font-[400] text-2xl'>0.00</h1>
+        <p className=' text-center  text-sm'>Wallet balance</p>
 
 
         <div className=' flex justify-between my-3'>

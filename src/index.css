@@ -61,6 +61,19 @@ body {
 .animate-none {
   animation: none !important;
 }
+.react-tabs__tab{
+  border: 1px solid  #fe5444;
+
+  margin: 5px 10px;
+  border-radius: 10px;
+ 
+
+}
+
+.react-tabs__tab--selected{
+  background-color: #fe5444;
+  color: #fff;
+}
 
 @media (max-width: 768px) {
   body {

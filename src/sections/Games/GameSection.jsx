@@ -87,103 +87,105 @@ function GameSection() {
 
       
       <div className=" flex justify-center items-center gap-6 w-full">
-        <div className=" bg-green-600 rounded-full py-2 px-6 shadow-md">
+        <button className=" bg-green-600 rounded-full py-2 px-6 shadow-md">
           <h2 className=" text-lg font-semibold text-white">Green</h2>
-        </div>
+        </button>
 
-        <div className=" bg-[#b659fe] shadow-md rounded-full py-2 px-6">
+        <button className=" bg-[#b659fe] shadow-md rounded-full py-2 px-6">
           <h2 className=" text-lg font-semibold text-white">Violet</h2>
-        </div>
+        </button>
 
-        <div className=" bg-[#fd565c] shadow-md rounded-full py-2 px-6">
+        <button className=" bg-[#fd565c] shadow-md rounded-full py-2 px-6">
           <h2 className=" text-lg font-semibold text-white">Red</h2>
-        </div>
+        </button>
       </div>
 
-      <div className=" bg-gray-500 rounded-3xl p-4 my-2 w-full">
-        <div className=" grid grid-cols-5 gap-2 mx-auto">
+      <div className=" bg-[#eeeeee]  border border-[#fe5444]  rounded-3xl p-2 my-2 w-full">
+        <div className=" grid grid-cols-5 gap-2 mx-auto px-8 py-1">
           <img
             src="images/ball/ball1.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
           <img
             src="images/ball/ball2.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
           <img
             src="images/ball/ball3.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
           <img
             src="images/ball/ball4.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
           <img
             src="images/ball/ball5.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
 
           <img
             src="images/ball/ball6.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
           <img
             src="images/ball/ball7.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
           <img
             src="images/ball/ball8.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
           <img
             src="images/ball/ball9.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
           <img
             src="images/ball/ball10.png"
             alt=""
-            className=" h-[26px] w-auto"
+            className=" h-[46px] w-auto"
           />
         </div>
       </div>
       <div>
-        <div className=" flex items-center gap-0">
+        <div className=" flex items-center gap-0 my-3">
 
-          <div className=" rounded-full border border-black py-1 px-6 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
+          <div className=" rounded-full border border-[#fe5444] py-1 px-6 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>Random</p>
           </div>
 
-          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
+          <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>1x</p>
           </div>
 
-          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
+          <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>5x</p>
           </div>
-          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
+          <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>10x</p>
           </div>
-          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
+          <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>20x</p>
           </div>
 
-          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
+          <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>50x</p>
           </div>
-          <div className=" rounded-full border border-black py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
+          <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
               <p>100x</p>
           </div>
         </div>
+        <div className=" mt-4">
         <GameHistory/>
+        </div>
       </div>
     </div>
   );

@@ -19,21 +19,18 @@ function GameHistory() {
 <div className=" w-full my-4">
         <Tabs>
           <TabList>
+            <Tab classID="new" >
+              <p>Game History</p>
+        
+            </Tab>
+        
             <Tab>
-              <p>Win Go</p>
-              <p>1 min</p>
+              <p>Chart</p>
+              
             </Tab>
             <Tab>
-              <p>Win Go</p>
-              <p>3 min</p>
-            </Tab>
-            <Tab>
-              <p>Win Go</p>
-              <p>5 min</p>
-            </Tab>
-            <Tab>
-              <p>Win Go</p>
-              <p>10 min</p>
+              <p>My History</p>
+           
             </Tab>
           </TabList>
 
@@ -106,28 +103,7 @@ function GameHistory() {
       </table>
     </div>
           </TabPanel>
-          <TabPanel>
-          <div className="overflow-x-auto">
-      <table className="w-full table-auto">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border px-4 py-2">Name</th>
-            <th className="border px-4 py-2">Number</th>
-            <th className="border px-4 py-2">Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
-              <td className="border px-4 py-2">{item.name}</td>
-              <td className="border px-4 py-2">{item.number}</td>
-              <td className="border px-4 py-2">{item.class}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-          </TabPanel>
+        
         </Tabs>
       </div>
     </div>
