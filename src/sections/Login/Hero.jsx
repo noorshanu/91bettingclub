@@ -16,6 +16,7 @@ function Hero() {
     username: "",
     password: "",
   };
+
   const reducer = (state, action) => ({ ...state, ...action });
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -25,9 +26,38 @@ function Hero() {
         username: state.username,
         password: state.password,
       });
-      console.log(data);
+      // console.log(data);
+
+      let result = await fetch("https://game.myclub11.com/wingo/login/", {
+        method: "POST",
+        credentials: true,
+        body: JSON.stringify({
+          identifier: "8962437508",
+          password: "1234",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log(await result.json());
+
+      // result = result.json()
     } catch (error) {
       // Handle validation errors
+      console.log(error);
+    }
+  };
+
+  const handleLogOut = async () => {
+    try {
+      const res = await fetch("https://game.myclub11.com/wingo/logout/", {
+        credentials: true,
+      });
+
+      console.log("res = ", await res.json());
+    } catch (error) {
+      console.log("ERROR in Logout ====");
       console.log(error);
     }
   };
@@ -110,6 +140,8 @@ function Hero() {
                   name=""
                   id=""
                   className=" bg-white py-2 px-4 rounded-full shadow-lg"
+                  value={state.username}
+                  onChange={(e) => dispatch({ username: e.target.value })}
                 />
               </div>
               <div className=" my-4 flex flex-col gap-2 ">
@@ -125,6 +157,8 @@ function Hero() {
                   name=""
                   id=""
                   className=" bg-white py-2 px-4 rounded-full shadow-lg"
+                  value={state.password}
+                  onChange={(e) => dispatch({ password: e.target.value })}
                 />
               </div>
             </div>
@@ -133,18 +167,23 @@ function Hero() {
       </Tabs>
 
       <div className=" flex flex-col gap-4 justify-center items-center py-6 ">
-        <a
+        <button
           onClick={handleLogin}
           className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center"
         >
           Login
-        </a>
-        <a
-          href="/signup"
+        </button>
+
+        <button className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center">
+          Register
+        </button>
+
+        <button
+          onClick={handleLogOut}
           className=" bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center"
         >
-          Register
-        </a>
+          Logout
+        </button>
       </div>
 
       <div className=" flex justify-evenly items-center mt-6 pb-1">
