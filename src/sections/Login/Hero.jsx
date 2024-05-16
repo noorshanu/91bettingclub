@@ -28,12 +28,12 @@ function Hero() {
       });
       // console.log(data);
 
-      let result = await fetch("https://game.myclub11.com/wingo/login/", {
+      let result = await fetch("https://game.myclub11.com/wingo/login", {
         method: "POST",
         credentials: true,
         body: JSON.stringify({
-          identifier: "8962437508",
-          password: "1234",
+          identifier: data.username,
+          password: data.password,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ function Hero() {
   const handleLogOut = async () => {
     try {
       const res = await fetch("https://game.myclub11.com/wingo/logout/", {
-        credentials: true,
+        credentials: 'include',
       });
 
       console.log("res = ", await res.json());
