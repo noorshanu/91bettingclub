@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer ,useState} from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoPhonePortrait } from "react-icons/io5";
@@ -8,8 +8,11 @@ import { FaLock } from "react-icons/fa6";
 import { FcLock } from "react-icons/fc";
 import { FcOnlineSupport } from "react-icons/fc";
 import { useLoginUserMutation } from "../../redux/api/user/userApiSlice";
+
+
 function Hero() {
   const [login] = useLoginUserMutation();
+  const [loginStatus, setLoginStatus] = useState(null); // Track login status
 
   const initialState = {
     username: "",
@@ -22,25 +25,25 @@ function Hero() {
   const handleLogin = async () => {
     try {
       const { username, password } = state;
-  
+
       // Check if username and password are provided
       if (!username || !password) {
         throw new Error("Username and password must be provided");
       }
-  
+
       console.log("Logging in with:", { username, password });
-  
+
       // Send login request to your API endpoint
       const data = await login({ username, password }).unwrap();
-  
+
       // Prepare payload for the second API request
       const payload = {
         identifier: username,
         password: password,
       };
-  
+
       console.log("Payload being sent:", payload);
-  
+
       const result = await fetch("https://game.myclub11.com/wingo/login", {
         method: "POST",
         credentials: 'include',
@@ -49,17 +52,19 @@ function Hero() {
           "Content-Type": "application/json",
         },
       });
-  
+
       if (!result.ok) {
         const errorData = await result.json();
         console.error("Error response from server:", errorData);
         throw new Error(`HTTP error! status: ${result.status}, message: ${errorData.message}`);
       }
-  
+
       console.log(await result.json());
-  
+      setLoginStatus("success"); // Set login status to success
+
     } catch (error) {
       console.error("Error during login:", error);
+      setLoginStatus("error"); // Set login status to error
     }
   };
 
@@ -70,6 +75,7 @@ function Hero() {
       });
 
       console.log("res = ", await res.json());
+      setLoginStatus(null); // Reset login status on logout
     } catch (error) {
       console.log("ERROR in Logout ====");
       console.log(error);
@@ -203,6 +209,18 @@ function Hero() {
           </h1>
         </div>
       </div>
+
+      {/* Conditionally render the login status message */}
+      {loginStatus === "success" && (
+        <div className="text-center text-green-600 font-semibold mt-4">
+          You are logged in
+        </div>
+      )}
+      {loginStatus === "error" && (
+        <div className="text-center text-red-600 font-semibold mt-4">
+          Failed to login. Please try again.
+        </div>
+      )}
     </>
   );
 }
