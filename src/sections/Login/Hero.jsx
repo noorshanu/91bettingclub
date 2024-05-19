@@ -26,11 +26,11 @@ function Hero() {
         username: state.username,
         password: state.password,
       });
-      // console.log(data);
+      console.log(data);
 
       let result = await fetch("https://game.myclub11.com/wingo/login", {
         method: "POST",
-        credentials: true,
+        credentials: 'include',
         body: JSON.stringify({
           identifier: data.username,
           password: data.password,
@@ -39,10 +39,14 @@ function Hero() {
           "Content-Type": "application/json",
         },
       });
+      // console.log(typeof identifier, typeof password)
+      if (!result.ok) {
+        throw new Error(`HTTP error! status: ${result.status}`);
+      }
+  
 
       console.log(await result.json());
 
-      // result = result.json()
     } catch (error) {
       // Handle validation errors
       console.log(error);
@@ -99,7 +103,7 @@ function Hero() {
                 <input
                   type="text"
                   name=""
-                  id=""
+                  id="username"
                   value={state.username}
                   onChange={(e) => dispatch({ username: e.target.value })}
                   className=" bg-white py-2 px-4 rounded-full shadow-lg"
@@ -115,7 +119,7 @@ function Hero() {
                 <input
                   type="password"
                   name=""
-                  id=""
+                  id="password"
                   value={state.password}
                   onChange={(e) => dispatch({ password: e.target.value })}
                   className=" bg-white py-2 px-4 rounded-full shadow-lg"
@@ -137,8 +141,8 @@ function Hero() {
                 </label>
                 <input
                   type="email"
-                  name=""
-                  id=""
+                  name="email"
+                  id="email"
                   className=" bg-white py-2 px-4 rounded-full shadow-lg"
                   value={state.username}
                   onChange={(e) => dispatch({ username: e.target.value })}
@@ -154,8 +158,8 @@ function Hero() {
                 </label>
                 <input
                   type="password"
-                  name=""
-                  id=""
+                  name="password"
+                  id="password"
                   className=" bg-white py-2 px-4 rounded-full shadow-lg"
                   value={state.password}
                   onChange={(e) => dispatch({ password: e.target.value })}
