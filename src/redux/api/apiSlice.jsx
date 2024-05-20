@@ -5,8 +5,8 @@ const baseQuery = fetchBaseQuery({
   baseUrl: SERVER_URL,
   credentials: "include",
   prepareHeaders: (headers) => {
-    // const token = localStorage.getItem
-
+    // Uncomment and adjust this if you need to add authorization headers
+    // const token = localStorage.getItem('token');
     // if (token) {
     //   headers.set("authorization", `Bearer ${token}`);
     // }
@@ -16,6 +16,6 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
   baseQuery,
-  tagTypes: [],
+  tagTypes: ["User"],
   endpoints: () => ({}),
 });

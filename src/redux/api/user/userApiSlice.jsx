@@ -2,8 +2,7 @@ import { apiSlice } from "../apiSlice";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // @desc    Register New User
-    // @route   POST /wingo/register/
+    // Register New User
     registerUser: builder.mutation({
       query: (data) => ({
         url: "/wingo/register",
@@ -12,6 +11,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    // Login User
     loginUser: builder.mutation({
       query: (data) => ({
         url: "/wingo/login",
@@ -21,7 +21,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["User"],
     }),
   }),
-
   overrideExisting: true,
 });
 
