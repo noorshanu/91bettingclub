@@ -124,6 +124,7 @@ function Hero() {
                 <input
                   type="text"
                   id="username"
+                  name="username"
                   value={state.username}
                   onChange={(e) =>
                     dispatch({ type: "setUsername", payload: e.target.value })
@@ -141,6 +142,7 @@ function Hero() {
                 <input
                   type="password"
                   id="password"
+                  name="password"
                   value={state.password}
                   onChange={(e) =>
                     dispatch({ type: "setPassword", payload: e.target.value })
