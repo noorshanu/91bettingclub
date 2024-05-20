@@ -1,4 +1,4 @@
-import React, { useReducer ,useState} from "react";
+import React, { useReducer, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoPhonePortrait } from "react-icons/io5";
@@ -9,7 +9,6 @@ import { FcLock } from "react-icons/fc";
 import { FcOnlineSupport } from "react-icons/fc";
 import { useLoginUserMutation } from "../../redux/api/user/userApiSlice";
 
-
 function Hero() {
   const [login] = useLoginUserMutation();
   const [loginStatus, setLoginStatus] = useState(null); // Track login status
@@ -19,26 +18,33 @@ function Hero() {
     password: "",
   };
 
-  const reducer = (state, action) => ({ ...state, ...action });
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "setUsername":
+        return { ...state, username: action.payload };
+      case "setPassword":
+        return { ...state, password: action.payload };
+      default:
+        return state;
+    }
+  };
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleLogin = async () => {
     try {
       const { username, password } = state;
 
-      // Check if username and password are provided
       if (!username || !password) {
         throw new Error("Username and password must be provided");
       }
 
       console.log("Logging in with:", { username, password });
 
-      // Send login request to your API endpoint
       const data = await login({ username, password }).unwrap();
+      console.log("Data from login mutation:", data);
 
-      // Prepare payload for the second API request
       const payload = {
-        identifier: username,
+        identifier: username, // Ensure this is correct
         password: password,
       };
 
@@ -46,7 +52,7 @@ function Hero() {
 
       const result = await fetch("https://game.myclub11.com/wingo/login", {
         method: "POST",
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
@@ -56,22 +62,22 @@ function Hero() {
       if (!result.ok) {
         const errorData = await result.json();
         console.error("Error response from server:", errorData);
-        throw new Error(`HTTP error! status: ${result.status}, message: ${errorData.message}`);
+        throw new Error(
+          `HTTP error! status: ${result.status}, message: ${errorData.message}`
+        );
       }
 
       console.log(await result.json());
-      setLoginStatus("success"); // Set login status to success
-
+      setLoginStatus("success");
     } catch (error) {
       console.error("Error during login:", error);
-      setLoginStatus("error"); // Set login status to error
+      setLoginStatus("error");
     }
   };
-
   const handleLogOut = async () => {
     try {
-      const res = await fetch("https://game.myclub11.com/wingo/logout/", {
-        credentials: 'include',
+      const res = await fetch("http://game.myclub11.com/wingo/logout", {
+        credentials: "include",
       });
 
       console.log("res = ", await res.json());
@@ -85,9 +91,9 @@ function Hero() {
   return (
     <>
       <Tabs className="bg-[#ecedf4] mt-4">
-        <TabList>
+        <TabList className="flex">
           <Tab>
-            <div className="w-52 text-center flex justify-center flex-col sm:flex-row gap-2">
+            <div className="w-42 text-center flex justify-center flex-col sm:flex-row gap-2">
               <div className="flex flex-col items-center">
                 <IoPhonePortrait className="text-2xl text-center" />
                 <p className="uppercase">LOGIN With Phone</p>
@@ -95,7 +101,7 @@ function Hero() {
             </div>
           </Tab>
           <Tab>
-            <div className="w-52 text-center flex justify-center flex-col sm:flex-row gap-4">
+            <div className="w-42 text-center flex justify-center flex-col sm:flex-row gap-4">
               <div className="flex flex-col items-center">
                 <MdMail className="text-2xl text-center" />
                 <p className="uppercase">login with email</p>
@@ -112,13 +118,16 @@ function Hero() {
                   htmlFor="username"
                   className="flex items-center gap-2 text-xl font-semibold"
                 >
-                  <IoIosPhonePortrait className="text-xl font-semibold" /> User Name
+                  <IoIosPhonePortrait className="text-xl font-semibold" /> User
+                  Name
                 </label>
                 <input
                   type="text"
                   id="username"
                   value={state.username}
-                  onChange={(e) => dispatch({ username: e.target.value })}
+                  onChange={(e) =>
+                    dispatch({ type: "setUsername", payload: e.target.value })
+                  }
                   className="bg-white py-2 px-4 rounded-full shadow-lg"
                 />
               </div>
@@ -133,7 +142,9 @@ function Hero() {
                   type="password"
                   id="password"
                   value={state.password}
-                  onChange={(e) => dispatch({ password: e.target.value })}
+                  onChange={(e) =>
+                    dispatch({ type: "setPassword", payload: e.target.value })
+                  }
                   className="bg-white py-2 px-4 rounded-full shadow-lg"
                 />
               </div>
