@@ -4,6 +4,7 @@ import "react-tabs/style/react-tabs.css";
 import HowToPlay from "./HowToPlay";
 import GameHistory from "./GameHistory";
 import axios from "axios";
+import BalancePopup from "./Pop";
 
 function GameSection() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -46,7 +47,7 @@ function GameSection() {
   //     console.error('Error fetching data:', error);
   //   } finally {
   //     setLoading(false);
-  //   }  
+  //   }
   // }
 
   const handleTabSelect = (index) => {
@@ -105,28 +106,32 @@ function GameSection() {
         </Tabs>
       </div>
 
-      
       <div className=" flex justify-center items-center gap-6 w-full">
-        <button className=" bg-green-600 rounded-full py-2 px-6 shadow-md">
+        {/* <button onClick={()=> {<BalancePopup />}} className=" bg-green-600 rounded-full py-2 px-6 shadow-md">
           <h2 className=" text-lg font-semibold text-white">Green</h2>
-        </button>
+        </button> */}
+        <BalancePopup name="Green" />
+        <BalancePopup name="Violet" />
+        <BalancePopup name="Red" />
 
-        <button className=" bg-[#b659fe] shadow-md rounded-full py-2 px-6">
+        {/* <button className=" bg-[#b659fe] shadow-md rounded-full py-2 px-6">
           <h2 className=" text-lg font-semibold text-white">Violet</h2>
         </button>
 
         <button className=" bg-[#fd565c] shadow-md rounded-full py-2 px-6">
           <h2 className=" text-lg font-semibold text-white">Red</h2>
-        </button>
+        </button> */}
       </div>
 
       <div className=" bg-[#eeeeee]  border border-[#fe5444]  rounded-3xl p-2 my-2 w-full">
         <div className=" grid grid-cols-5 gap-2 mx-auto px-8 py-1">
-          <img
-            src="images/ball/ball1.png"
-            alt=""
-            className=" h-[46px] w-auto"
-          />
+          <div onClick={() => <BalancePopup name="Green" />}>
+            <img
+              src="images/ball/ball1.png"
+              alt=""
+              className=" h-[46px] w-auto"
+            />
+          </div>
           <img
             src="images/ball/ball2.png"
             alt=""
@@ -177,34 +182,33 @@ function GameSection() {
       </div>
       <div>
         <div className=" flex items-center gap-0 my-3">
-
           <div className=" rounded-full border border-[#fe5444] py-1 px-6 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
-              <p>Random</p>
+            <p>Random</p>
           </div>
 
           <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
-              <p>1x</p>
+            <p>1x</p>
           </div>
 
           <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
-              <p>5x</p>
+            <p>5x</p>
           </div>
           <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
-              <p>10x</p>
+            <p>10x</p>
           </div>
           <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
-              <p>20x</p>
+            <p>20x</p>
           </div>
 
           <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
-              <p>50x</p>
+            <p>50x</p>
           </div>
           <div className=" rounded-full border border-[#fe5444] py-1 px-2 mr-2 font-bold hover:bg-amber-500 cursor-pointer ">
-              <p>100x</p>
+            <p>100x</p>
           </div>
         </div>
         <div className=" mt-4">
-        <GameHistory/>
+          <GameHistory />
         </div>
       </div>
     </div>
