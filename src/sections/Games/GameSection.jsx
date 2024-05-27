@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import HowToPlay from "./HowToPlay";
 import GameHistory from "./GameHistory";
+import axios from "axios";
 
 function GameSection() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -28,6 +29,25 @@ function GameSection() {
 
     return () => clearInterval(timer);
   }, [minutes, seconds]);
+
+  // const [data, setData] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
+
+  // const api = async () => {
+  //   setLoading(true);
+  //   setError(null);
+  //   try {
+  //     const response = await axios.post('https://game.myclub11.com/wingo/random_gen/');
+  //     setData(response.data);
+  //     console.log(response.data)
+  //   } catch (error) {
+  //     setError('An error occurred while fetching the data.');
+  //     console.error('Error fetching data:', error);
+  //   } finally {
+  //     setLoading(false);
+  //   }  
+  // }
 
   const handleTabSelect = (index) => {
     if (selectedTab !== index) {

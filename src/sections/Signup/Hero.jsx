@@ -18,6 +18,7 @@ function Hero() {
     username: "",
     email: "",
     phone: "",
+    referalNumber: "",
     setPassword: "",
     confirmPassword: "",
   });
@@ -26,15 +27,19 @@ function Hero() {
     username: "",
     email: "",
     phone_number: "",
+    referalNumber: "",
     password: "",
     confirmPassword: "",
   };
+
+  const [showThankYou, setShowThankYou] = useState(false);
 
   const onSubmit=(values)=>{
 
     axios.post('https://game.myclub11.com/wingo/register',values)
     .then(res =>{
-      alert(res.data.message)
+      console.log(res.data.message)
+      setShowThankYou(true);
     })
     .catch(err=>{
       console.log(err)
@@ -62,6 +67,8 @@ function Hero() {
       errors.phone_number = "Invalid phone number";
     }
 
+    // Validation for Referal number
+
     if (!values.password) {
       errors.password = "Required";
     } else if (values.password.length < 8) {
@@ -75,120 +82,23 @@ function Hero() {
     } else if (!(values.password === values.confirmPassword)) {
       errors.confirmPassword = "Password does not match";
     }
+
     return errors;  
   };
 
   const formik = useFormik({initialValues, onSubmit, validate: validation})
-  // const reducer = (state, action) => ({
-  //   ...state,
-  //   [action.name]: action.value,
-  // });
-  // const [state, dispatch] = useReducer(reducer, initialState);
-
-  // const validationSchema = yup.object().shape({
-  //   username: yup
-  //     .string()
-  //     .required("Username is required")
-  //     .min(3, "Username must be at least 3 characters long")
-  //     .max(20, "Username must be at most 20 characters long")
-  //     .matches(
-  //       /^[a-zA-Z0-9_]+$/,
-  //       "Username can only contain letters, numbers, and underscores"
-  //     ),
-  //   email: yup
-  //     .string()
-  //     .required("Email is required")
-  //     .email("Email must be a valid email address"),
-  //   phone: yup
-  //     .string()
-  //     .min(10, "Phone number must be at least 10 digits")
-  //     .max(15, "Phone number cannot exceed 15 digits")
-  //     .required("Phone number is required"),
-  //   setPassword: yup
-  //     .string()
-  //     .min(8, "Password must be at least 8 characters")
-  //     .max(32, "Password cannot exceed 32 characters")
-  //     .required("Password is required"),
-  //   confirmPassword: yup
-  //     .string()
-  //     .oneOf([yup.ref("setPassword"), null], "Passwords must match"),
-  // });
-
-  // const validateForm = (event) => {
-  //   event.preventDefault();
-  //   console.log("Log Events: ",event)
-  //   validationSchema
-  //     .validate(state, { abortEarly: false })
-  //     .then(() => {
-  //       setErrors({
-  //         username: "",
-  //         email: "",
-  //         phone: "",
-  //         setPassword: "",
-  //         confirmPassword: "",
-  //       });
-  //       // If validation succeeds, call your registration function
-  //       // registerUser(state);
-  //     })
-  //     .catch((error) => {
-  //       // Handle validation errors
-  //       const newErrors = {};
-  //       error.inner.forEach((err) => {
-  //         newErrors[err.path] = err.message;
-  //       });
-  //       setErrors(newErrors);
-  //     });
-  //   };
-
-  
-  // const RegisterForm = () => {
-  //   const formik = useFormik({
-  //     initialValues: {
-  //       username: '',
-  //       phone: '',
-  //       email: '',
-  //       password: '',
-  //     },
-  //     validationSchema: validationSchema,
-  //     onSubmit: async (values) => {
-  //       const url = 'https://game.myclub11.com/wingo/register';
-  
-  //       try {
-  //         const response = await axios.post(url, values, {
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //           }
-  //         });
-  
-  //         if (response.status === 200 || response.status === 201) {
-  //           console.log('Registration successful:', response.data);
-  //           // Handle successful registration
-  //         } else {
-  //           console.error('Unexpected response:', response);
-  //         }
-  //       } catch (error) {
-  //         console.error('Error during registration:', error);
-  //         // Handle error during registration
-  //       }
-  //     },
-   //  });
-
-    
-// axios()
-// .post("https://game.myclub11.com/wingo/register")
-// .then((response)=>{
-// console.log(response)
-// })
-// .catch((err)=>{
-//   console.log(err)
-// })
-
   
     
   return (
     <>
       <div className=" flex justify-center flex-col items-center gap-2 my-6 px-6 border-b-2 border-black pb-2">
-        
+      {showThankYou && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white p-6 rounded-lg shadow-xl z-50">
+          <h2 className="text-2xl font-bold mb-4">Thank You for Registering!</h2>
+          <p className="mb-4">You are successfully registred.</p>
+          <button className="mt-2 px-4 py-2 bg-white text-purple-600 font-semibold rounded hover:bg-gray-300" onClick={() => setShowThankYou(false)}>Close</button>
+        </div>
+      )}
         <IoIosPhonePortrait className=" text-5xl text-center" />
         <p className=" text-xl">Register your phone</p>
       </div>
@@ -269,6 +179,30 @@ function Hero() {
             />
             {/* {errors.phone_number && <p className=" text-red-500">{errors.phone_number}</p>} */}
             {formik.errors.phone_number && formik.touched.phone_number && formik.errors.phone_number}
+
+          </div>
+
+          <div className=" my-4 flex flex-col gap-2 ">
+            <label
+              htmlFor="tel"
+              id="phone_number"
+              className="flex items-center gap-2 text-xl font-semibold"
+            >
+              {" "}
+              <IoIosPhonePortrait className="text-2xl font-semibold" /> Referal Number
+            </label>
+            <input
+              type="text"
+              name="referalNumber"
+              id="referalNumber"
+              placeholder="Enter referal code"
+              value={formik.values.referalNumber}
+              onChange={formik.handleChange}
+              // required
+              className=" bg-white rounded-md p-2 border-2 border-gray-300 focus:outline-none focus:border-indigo-500 transition duration-500"
+            />
+            {/* {errors.phone_number && <p className=" text-red-500">{errors.phone_number}</p>} */}
+            {formik.errors.referalNumber && formik.touched.referalNumber && formik.errors.referalNumber}
 
           </div>
 
