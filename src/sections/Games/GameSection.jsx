@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import HowToPlay from "./HowToPlay";
 import GameHistory from "./GameHistory";
-import axios from "axios";
 import BalancePopup from "./Pop";
 
 function GameSection() {
@@ -24,31 +23,14 @@ function GameSection() {
           setSeconds((prevSeconds) => prevSeconds - 1);
         }
       } else {
-        clearInterval(timer);
+        // Reset timer based on the selected tab duration
+        setMinutes(tabDurations[selectedTab]);
+        setSeconds(0);
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [minutes, seconds]);
-
-  // const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-
-  // const api = async () => {
-  //   setLoading(true);
-  //   setError(null);
-  //   try {
-  //     const response = await axios.post('https://game.myclub11.com/wingo/random_gen/');
-  //     setData(response.data);
-  //     console.log(response.data)
-  //   } catch (error) {
-  //     setError('An error occurred while fetching the data.');
-  //     console.error('Error fetching data:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
+  }, [minutes, seconds, selectedTab]);
 
   const handleTabSelect = (index) => {
     if (selectedTab !== index) {
@@ -107,20 +89,9 @@ function GameSection() {
       </div>
 
       <div className=" flex justify-center items-center gap-6 w-full">
-        {/* <button onClick={()=> {<BalancePopup />}} className=" bg-green-600 rounded-full py-2 px-6 shadow-md">
-          <h2 className=" text-lg font-semibold text-white">Green</h2>
-        </button> */}
         <BalancePopup name="Green" />
         <BalancePopup name="Violet" />
         <BalancePopup name="Red" />
-
-        {/* <button className=" bg-[#b659fe] shadow-md rounded-full py-2 px-6">
-          <h2 className=" text-lg font-semibold text-white">Violet</h2>
-        </button>
-
-        <button className=" bg-[#fd565c] shadow-md rounded-full py-2 px-6">
-          <h2 className=" text-lg font-semibold text-white">Red</h2>
-        </button> */}
       </div>
 
       <div className=" bg-[#eeeeee]  border border-[#fe5444]  rounded-3xl p-2 my-2 w-full">
