@@ -13,6 +13,40 @@ function GameSection() {
 
   const tabDurations = [1, 3, 5, 10];
 
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const api = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.post(
+        'https://game.myclub11.com/wingo/random_gen/', 
+        {}, 
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': 'pezbmiawzRJJJVVOTzhiiW46D5AsW5LL',
+          }
+        }
+      );
+      setData(response.data);
+      console.log(response.data);
+    } catch (error) {
+      setError('An error occurred while fetching the data.');
+      if (error.response && error.response.status === 403) {
+        console.error('Error 403: Forbidden. Check your authentication credentials and permissions.');
+      } else {
+        console.error('Error fetching data:', error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
   useEffect(() => {
     const timer = setInterval(() => {
       // Decrement time if it's not zero
@@ -25,30 +59,13 @@ function GameSection() {
         }
       } else {
         clearInterval(timer);
+        api();
       }
     }, 1000);
 
     return () => clearInterval(timer);
   }, [minutes, seconds]);
 
-  // const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-
-  // const api = async () => {
-  //   setLoading(true);
-  //   setError(null);
-  //   try {
-  //     const response = await axios.post('https://game.myclub11.com/wingo/random_gen/');
-  //     setData(response.data);
-  //     console.log(response.data)
-  //   } catch (error) {
-  //     setError('An error occurred while fetching the data.');
-  //     console.error('Error fetching data:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
 
   const handleTabSelect = (index) => {
     if (selectedTab !== index) {
@@ -129,54 +146,54 @@ function GameSection() {
             <img
               src="images/ball/ball1.png"
               alt=""
-              className=" h-[46px] w-auto"
+              className=" h-[46px] w-auto cursor-pointer"
             />
           </div>
           <img
             src="images/ball/ball2.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
           <img
             src="images/ball/ball3.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
           <img
             src="images/ball/ball4.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
           <img
             src="images/ball/ball5.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
 
           <img
             src="images/ball/ball6.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
           <img
             src="images/ball/ball7.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
           <img
             src="images/ball/ball8.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
           <img
             src="images/ball/ball9.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
           <img
             src="images/ball/ball10.png"
             alt=""
-            className=" h-[46px] w-auto"
+            className=" h-[46px] w-auto cursor-pointer"
           />
         </div>
       </div>
