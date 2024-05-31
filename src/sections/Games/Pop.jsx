@@ -1,30 +1,61 @@
 import React, { useState, useEffect } from 'react';
 
 const BalancePopup = ({name}) => {
+  // console.log(name)
   const [showPopup, setShowPopup] = useState(false);
   const [selectedBalance, setSelectedBalance] = useState(1);
   const [quantity, setQuantity] = useState(1);
   const [totalAmount, setTotalAmount] = useState(1);
 
   useEffect(() => {
-    calculateTotal();
+    const tot = calculateTotal();
+    console.log("Total Amount(useEffect): ",tot)
+
   }, [selectedBalance, quantity]);
 
   const handleBalanceChange = (balance) => {
     setSelectedBalance(balance);
+    console.log("Selected Balance: ",balance)
   };
 
   const handleQuantityChange = (event) => {
-    setQuantity(Number(event.target.value));
+    setQuantity((event.target.value));
+    console.log("Selected Quantity: ",event.target.value)
   };
 
   const calculateTotal = () => {
     setTotalAmount(selectedBalance * quantity);
+    console.log("Quanity = ", quantity) // ok
+    console.log("SelectedBalance = ", selectedBalance)  // ok
+    console.log("Prod = ", quantity*selectedBalance)  // ok
+    console.log("TotalAmount = ", totalAmount)  // err
   };
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
+
+  // Total Amount & Number or color select
+  const data = {
+    digit: "",
+    amount: ""
+  }
+
+  const betApi = async () => {
+    console.log("Bet API hitted")
+    const url = "https://game.myclub11.com/random_gen/"
+    try {
+      const response = await axios.post(url, data)
+      .then(response => {
+        console.log('Data sent successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error sending data:', error);
+      });
+    } catch(error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
   return (
     <div className="flex items-center justify-center ">
@@ -38,7 +69,7 @@ const BalancePopup = ({name}) => {
       {showPopup && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className={`bg-white p-6 rounded-lg shadow-lg ${name==="Green" ? "bg-green-300": name==="Violet"? "bg-violet-300": "bg-red-300" }`}>
-            <h2 className="text-2xl font-bold mb-4">Select Balance and Quantity</h2>
+            <h2 className="text-2xl font-bold mb-4">Select {name}</h2>
             
             <div className="mb-4">
               <label className="block mb-2">Balance</label>

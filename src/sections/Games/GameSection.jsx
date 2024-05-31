@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import axios from "axios";
+
 import HowToPlay from "./HowToPlay";
 import GameHistory from "./GameHistory";
 import BalancePopup from "./Pop";
+import betApi from "./Pop"
 
 function GameSection() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -26,7 +29,7 @@ function GameSection() {
         {
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': 'pezbmiawzRJJJVVOTzhiiW46D5AsW5LL',
+            'X-CSRFToken': '',
           }
         }
       );
@@ -62,6 +65,7 @@ function GameSection() {
         setSeconds(0);
         clearInterval(timer);
         api();
+        // betApi();
       }
     }, 1000);
 
@@ -134,7 +138,7 @@ function GameSection() {
 
       <div className=" bg-[#eeeeee]  border border-[#fe5444]  rounded-3xl p-2 my-2 w-full">
         <div className=" grid grid-cols-5 gap-2 mx-auto px-8 py-1">
-          <div onClick={() => <BalancePopup name="Green" />}>
+          <div onClick={() => <BalancePopup name="1" />}>
             <img
               src="images/ball/ball1.png"
               alt=""
