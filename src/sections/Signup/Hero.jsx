@@ -9,9 +9,8 @@ import { MdEmail } from "react-icons/md";
 import axios from "axios";
 import { useFormik } from "formik";
 
-import { FcOnlineSupport } from "react-icons/fc";
-//import { useRegisterUserMutation } from "../../redux/api/user/userApiSlice";
-import * as yup from "yup";
+
+
 
 function Hero() {
   const [errors, setErrors] = useState({

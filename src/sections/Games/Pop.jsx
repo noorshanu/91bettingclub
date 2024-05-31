@@ -1,34 +1,34 @@
 import React, { useState, useEffect } from 'react';
 
-const BalancePopup = ({name}) => {
-  // console.log(name)
+const BalancePopup = ({ name }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedBalance, setSelectedBalance] = useState(1);
   const [quantity, setQuantity] = useState(1);
   const [totalAmount, setTotalAmount] = useState(1);
 
   useEffect(() => {
-    const tot = calculateTotal();
-    console.log("Total Amount(useEffect): ",tot)
-
+    const tot = calculateTotal(selectedBalance, quantity);
+    setTotalAmount(tot);
+    console.log("Total Amount(useEffect): ", tot);
   }, [selectedBalance, quantity]);
 
   const handleBalanceChange = (balance) => {
     setSelectedBalance(balance);
-    console.log("Selected Balance: ",balance)
+    console.log("Selected Balance: ", balance);
   };
 
   const handleQuantityChange = (event) => {
-    setQuantity((event.target.value));
-    console.log("Selected Quantity: ",event.target.value)
+    const value = parseInt(event.target.value, 10);
+    setQuantity(value);
+    console.log("Selected Quantity: ", value);
   };
 
-  const calculateTotal = () => {
-    setTotalAmount(selectedBalance * quantity);
-    console.log("Quanity = ", quantity) // ok
-    console.log("SelectedBalance = ", selectedBalance)  // ok
-    console.log("Prod = ", quantity*selectedBalance)  // ok
-    console.log("TotalAmount = ", totalAmount)  // err
+  const calculateTotal = (balance, qty) => {
+    const total = balance * qty;
+    console.log("Quantity = ", qty); // ok
+    console.log("SelectedBalance = ", balance); // ok
+    console.log("Prod = ", qty * balance); // ok
+    return total;
   };
 
   const togglePopup = () => {
@@ -39,38 +39,33 @@ const BalancePopup = ({name}) => {
   const data = {
     digit: "",
     amount: ""
-  }
+  };
 
   const betApi = async () => {
-    console.log("Bet API hitted")
-    const url = "https://game.myclub11.com/random_gen/"
+    console.log("Bet API hitted");
+    const url = "https://game.myclub11.com/random_gen/";
     try {
-      const response = await axios.post(url, data)
-      .then(response => {
-        console.log('Data sent successfully:', response.data);
-      })
-      .catch(error => {
-        console.error('Error sending data:', error);
-      });
-    } catch(error) {
-      console.error('Error fetching data:', error);
+      const response = await axios.post(url, data);
+      console.log('Data sent successfully:', response.data);
+    } catch (error) {
+      console.error('Error sending data:', error);
     }
-  }
+  };
 
   return (
-    <div className="flex items-center justify-center ">
+    <div className="flex items-center justify-center">
       <button
         onClick={togglePopup}
-        className={`text-white px-6 py-3 rounded-3xl font-semibold ${name==="Green" ? "bg-green-600": name==="Violet"? "bg-violet-600": "bg-red-500" }`}
+        className={`text-white px-6 py-3 rounded-3xl font-semibold ${name === "Green" ? "bg-green-600" : name === "Violet" ? "bg-violet-600" : "bg-red-500"}`}
       >
         {name}
       </button>
 
       {showPopup && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className={`bg-white p-6 rounded-lg shadow-lg ${name==="Green" ? "bg-green-300": name==="Violet"? "bg-violet-300": "bg-red-300" }`}>
+          <div className={`bg-white p-6 rounded-lg shadow-lg ${name === "Green" ? "bg-green-300" : name === "Violet" ? "bg-violet-300" : "bg-red-300"}`}>
             <h2 className="text-2xl font-bold mb-4">Select {name}</h2>
-            
+
             <div className="mb-4">
               <label className="block mb-2">Balance</label>
               <div className="flex space-x-2">
@@ -78,9 +73,7 @@ const BalancePopup = ({name}) => {
                   <button
                     key={balance}
                     onClick={() => handleBalanceChange(balance)}
-                    className={`p-2 rounded border ${
-                      selectedBalance === balance ? 'bg-blue-500 text-white' : 'bg-gray-200'
-                    }`}
+                    className={`p-2 rounded border ${selectedBalance === balance ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
                   >
                     {balance}
                   </button>

@@ -4,12 +4,11 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 const baseQuery = fetchBaseQuery({
   baseUrl: SERVER_URL,
   credentials: "include",
-  prepareHeaders: (headers) => {
-    // Uncomment and adjust this if you need to add authorization headers
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   headers.set("authorization", `Bearer ${token}`);
-    // }
+  prepareHeaders: (headers, { getState }) => {
+    const csrfToken = getState().auth.csrfToken; // Assuming you store CSRF token in the Redux state
+    if (csrfToken) {
+      headers.set("X-CSRF-Token", csrfToken);
+    }
     return headers;
   },
 });
