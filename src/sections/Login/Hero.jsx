@@ -244,5 +244,5 @@ function InfoBlock({ icon, text }) {
     </div>
   );
 }
-
+}
 export default Hero;
