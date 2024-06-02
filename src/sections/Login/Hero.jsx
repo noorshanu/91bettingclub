@@ -1,11 +1,12 @@
 import React, { useReducer, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { IoPhonePortrait,  } from "react-icons/io5";
+import { IoPhonePortrait } from "react-icons/io5";
 import { MdMail } from "react-icons/md";
 import { FaLock } from "react-icons/fa6";
 import { FcLock, FcOnlineSupport } from "react-icons/fc";
 import { useLoginUserMutation } from "../../redux/api/user/userApiSlice";
+import Cookies from "js-cookie";
 
 function Hero() {
   const [login] = useLoginUserMutation();
@@ -33,20 +34,20 @@ function Hero() {
   const handleLogin = async () => {
     try {
       const { username, password } = state;
-  
+
       if (!username || !password) {
         throw new Error("Username and password must be provided");
       }
-  
+
       console.log("Logging in with:", { username, password });
-  
+
       const payload = {
         identifier: username,
         password: password,
       };
-  
+
       console.log("Payload being sent:", payload);
-  
+
       const result = await fetch("https://game.myclub11.com/wingo/login", {
         method: "POST",
         credentials: "include",
@@ -55,23 +56,34 @@ function Hero() {
           "Content-Type": "application/json",
         },
       });
-  
+
       if (!result.ok) {
         const errorData = await result.json();
         console.error("Error response from server:", errorData);
-        throw new Error(`HTTP error! status: ${result.status}, message: ${errorData.message}`);
+        throw new Error(
+          `HTTP error! status: ${result.status}, message: ${errorData.message}`
+        );
       }
-  
+
       const resultData = await result.json();
       console.log("Successful login:", resultData);
       setLoginStatus("success");
+
+      // // Unable to get the token.  - Err -
+      // const token = resultData.csrftoken;
+      // Cookies.set("token", csrftoken, { expires: 1 }); // Store token in a cookie for 1 days
+
+      // // Log the cookie
+      // const loggedInToken = Cookies.get("csrftoken");
+      // console.log("Logged in token:", loggedInToken);
+
+      // return token;
     } catch (error) {
       console.error("Error during login:", error);
       setLoginStatus("error");
     }
   };
 
-  
   const handleLogOut = async () => {
     try {
       const res = await fetch("https://game.myclub11.com/wingo/logout", {
@@ -116,8 +128,7 @@ function Hero() {
                   htmlFor="username"
                   className="flex items-center gap-2 text-xl font-semibold"
                 >
-                 User
-                  Name
+                  User Name
                 </label>
                 <input
                   type="text"

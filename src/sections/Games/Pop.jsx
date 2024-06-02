@@ -37,8 +37,8 @@ const BalancePopup = ({ name }) => {
 
   // Total Amount & Number or color select
   const data = {
-    digit: "",
-    amount: ""
+    digit: name,
+    amount: tot
   };
 
   const betApi = async () => {
