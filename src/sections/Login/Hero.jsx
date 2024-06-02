@@ -2,6 +2,7 @@ import React, { useReducer, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoPhonePortrait } from "react-icons/io5";
+import { IoPhonePortrait } from "react-icons/io5";
 import { MdMail } from "react-icons/md";
 import { FaLock } from "react-icons/fa6";
 import { FcLock, FcOnlineSupport } from "react-icons/fc";
@@ -12,50 +13,43 @@ function Hero() {
   const [login] = useLoginUserMutation();
   const [loginStatus, setLoginStatus] = useState(null);
 
-  const initialState = {
-    username: "",
-    password: "",
-  };
+const initialState = {
+  username: "",
+  password: "",
+};
 
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "setUsername":
-        return { ...state, username: action.payload };
-      case "setPassword":
-        return { ...state, password: action.payload };
-      case "reset":
-        return initialState;
-      default:
-        return state;
-    }
-  };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "setUsername":
+      return { ...state, username: action.payload };
+    case "setPassword":
+      return { ...state, password: action.payload };
+    case "reset":
+      return initialState;
+    default:
+      return state;
+  }
+};
 
+function Hero() {
+  const [login] = useLoginUserMutation();
+  const [loginStatus, setLoginStatus] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const handleLogin = async () => {
     try {
       const { username, password } = state;
+      if (!username || !password) throw new Error("Username and password must be provided");
 
-      if (!username || !password) {
-        throw new Error("Username and password must be provided");
-      }
-
-      console.log("Logging in with:", { username, password });
-
-      const payload = {
-        identifier: username,
-        password: password,
-      };
-
-      console.log("Payload being sent:", payload);
+      const payload = { identifier: username, password };
 
       const result = await fetch("https://game.myclub11.com/wingo/login", {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       });
+
 
       if (!result.ok) {
         const errorData = await result.json();
@@ -63,7 +57,10 @@ function Hero() {
         throw new Error(
           `HTTP error! status: ${result.status}, message: ${errorData.message}`
         );
+        throw new Error(`HTTP error! status: ${result.status}, message: ${errorData.message}`);
       }
+
+      await result.json();
 
       const resultData = await result.json();
       console.log("Successful login:", resultData);
@@ -79,18 +76,14 @@ function Hero() {
 
       // return token;
     } catch (error) {
-      console.error("Error during login:", error);
       setLoginStatus("error");
     }
   };
 
+
   const handleLogOut = async () => {
     try {
-      const res = await fetch("https://game.myclub11.com/wingo/logout", {
-        credentials: "include",
-      });
-
-      await res.json();
+      await fetch("https://game.myclub11.com/wingo/logout", { credentials: "include" });
       setLoginStatus(null);
       dispatch({ type: "reset" });
     } catch (error) {
@@ -121,6 +114,7 @@ function Hero() {
         </TabList>
 
         <TabPanel>
+          <LoginForm state={state} dispatch={dispatch} />
           <div className="my-6 px-4">
             <div className="flex flex-col gap-2 my-4">
               <div className="my-4 flex flex-col gap-2">
@@ -164,44 +158,7 @@ function Hero() {
         </TabPanel>
 
         <TabPanel>
-          <div className="my-6 px-4">
-            <div className="flex flex-col gap-2 my-4">
-              <div className="my-4 flex flex-col gap-2">
-                <label
-                  htmlFor="email"
-                  className="flex items-center gap-2 text-xl font-semibold"
-                >
-                  <MdMail className="text-xl font-semibold" /> Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={state.username}
-                  onChange={(e) =>
-                    dispatch({ type: "setUsername", payload: e.target.value })
-                  }
-                  className="bg-white py-2 px-4 rounded-full shadow-lg"
-                />
-              </div>
-              <div className="my-4 flex flex-col gap-2">
-                <label
-                  htmlFor="password"
-                  className="flex items-center gap-2 text-xl font-semibold"
-                >
-                  <FaLock className="text-xl font-semibold" /> Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={state.password}
-                  onChange={(e) =>
-                    dispatch({ type: "setPassword", payload: e.target.value })
-                  }
-                  className="bg-white py-2 px-4 rounded-full shadow-lg"
-                />
-              </div>
-            </div>
-          </div>
+          <LoginForm state={state} dispatch={dispatch} isEmail />
         </TabPanel>
       </Tabs>
 
@@ -226,16 +183,8 @@ function Hero() {
       </div>
 
       <div className="flex justify-evenly items-center mt-6 pb-1">
-        <div>
-          <h1 className="flex items-center gap-2 font-medium text-xl justify-center text-center flex-col uppercase">
-            <FcLock className="text-xl" /> Forget Password
-          </h1>
-        </div>
-        <div>
-          <h1 className="flex items-center gap-2 font-medium text-xl justify-center text-center flex-col uppercase">
-            <FcOnlineSupport className="text-xl" /> Support
-          </h1>
-        </div>
+        <InfoBlock icon={<FcLock className="text-xl" />} text="Forget Password" />
+        <InfoBlock icon={<FcOnlineSupport className="text-xl" />} text="Support" />
       </div>
 
       {loginStatus === "error" && (
@@ -244,6 +193,55 @@ function Hero() {
         </div>
       )}
     </>
+  );
+}
+
+function LoginForm({ state, dispatch, isEmail = false }) {
+  return (
+    <div className="my-6 px-4">
+      <div className="flex flex-col gap-2 my-4">
+        <div className="my-4 flex flex-col gap-2">
+          <label htmlFor="username" className="flex items-center gap-2 text-xl font-semibold">
+            {isEmail ? (
+              <>
+                <MdMail className="text-xl font-semibold" /> Email
+              </>
+            ) : (
+              <>User Name</>
+            )}
+          </label>
+          <input
+            type={isEmail ? "email" : "text"}
+            id="username"
+            value={state.username}
+            onChange={(e) => dispatch({ type: "setUsername", payload: e.target.value })}
+            className="bg-white py-2 px-4 rounded-full shadow-lg"
+          />
+        </div>
+        <div className="my-4 flex flex-col gap-2">
+          <label htmlFor="password" className="flex items-center gap-2 text-xl font-semibold">
+            <FaLock className="text-xl font-semibold" /> Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={state.password}
+            onChange={(e) => dispatch({ type: "setPassword", payload: e.target.value })}
+            className="bg-white py-2 px-4 rounded-full shadow-lg"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function InfoBlock({ icon, text }) {
+  return (
+    <div>
+      <h1 className="flex items-center gap-2 font-medium text-xl justify-center text-center flex-col uppercase">
+        {icon} {text}
+      </h1>
+    </div>
   );
 }
 
