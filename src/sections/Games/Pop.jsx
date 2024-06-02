@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const BalancePopup = ({ name }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -35,15 +36,13 @@ const BalancePopup = ({ name }) => {
     setShowPopup(!showPopup);
   };
 
-  // Total Amount & Number or color select
-  const data = {
-    digit: name,
-    amount: tot
-  };
-
   const betApi = async () => {
     console.log("Bet API hitted");
     const url = "https://game.myclub11.com/random_gen/";
+    const data = {
+      digit: name,
+      amount: totalAmount
+    };
     try {
       const response = await axios.post(url, data);
       console.log('Data sent successfully:', response.data);
@@ -103,6 +102,12 @@ const BalancePopup = ({ name }) => {
                 className="bg-red-500 text-white p-2 rounded font-semibold hover:bg-red-700"
               >
                 Cancel
+              </button>
+              <button
+                onClick={betApi}
+                className="bg-blue-500 text-white p-2 rounded font-semibold hover:bg-blue-700"
+              >
+                Confirm
               </button>
             </div>
           </div>

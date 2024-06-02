@@ -1,7 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./api/apiSlice";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import userReducer from './api/UserSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from '../redux/api/user/userApiSlice';
+import { apiSlice } from '../redux/api/apiSlice';
 
 export const store = configureStore({
   reducer: {
@@ -9,8 +8,5 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: true,
+    getDefaultMiddleware().concat(apiSlice.middleware)
 });
-
-setupListeners(store.dispatch);

@@ -1,20 +1,27 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
-const baseQuery = fetchBaseQuery({
-  baseUrl: SERVER_URL,
-  credentials: "include",
-  prepareHeaders: (headers, { getState }) => {
-    const csrfToken = getState().auth.csrfToken; // Assuming you store CSRF token in the Redux state
-    if (csrfToken) {
-      headers.set("X-CSRF-Token", csrfToken);
-    }
-    return headers;
-  },
-});
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 
 export const apiSlice = createApi({
-  baseQuery,
-  tagTypes: ["User"],
-  endpoints: () => ({}),
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://game.myclub11.com',
+    prepareHeaders: (headers) => {
+      const token = Cookies.get('token');
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    }
+  }),
+  endpoints: (builder) => ({
+    loginUser: builder.mutation({
+      query: (credentials) => ({
+        url: '/wingo/login',
+        method: 'POST',
+        body: credentials
+      })
+    })
+  })
 });
+
+export const { useLoginUserMutation } = apiSlice;

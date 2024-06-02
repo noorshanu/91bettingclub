@@ -2,11 +2,14 @@ import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
 function Navbar() {
+  const goBack = () => {
+    window.history.back();
+  };
   return (
     <section>
       <div className=" bg-gradient-to-r from-[#F95A59] to-[#FF998D] mx-auto h-auto px-4 py-3 ">
         <div className=" flex justify-between items-center">
-          <div>
+          <div onClick={goBack} className=" cursor-pointer">
             <IoIosArrowBack className=" text-white text-2xl" />
           </div>
 
