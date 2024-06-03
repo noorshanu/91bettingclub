@@ -34,10 +34,27 @@ function Hero() {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user); // Fetch user data from state
   const [loginStatus, setLoginStatus] = useState(null);
+console.log(token)
+console.log(user)
+  useEffect(() => {
+    // Check for existing token on component mount
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      dispatch(setToken(storedToken));
+      setLoginStatus("success");
+    }
+  }, []);
 
   useEffect(() => {
     if (token) {
+      // Store token in local storage
+      localStorage.setItem("token", token);
+      console.log(token)
       setLoginStatus("success");
+    } else {
+      // Clear token from local storage on logout
+      localStorage.removeItem("token");
+      setLoginStatus(null);
     }
   }, [token]);
 
@@ -47,6 +64,8 @@ function Hero() {
       if (!username || !password) throw new Error("Username and password must be provided");
 
       const result = await loginUser({ identifier: username, password }).unwrap();
+      console.log(username , password,token)
+      console.log(result.token)
       dispatch(setToken(result.token));
       dispatch(setUser(result.user)); // Set user data in the Redux state
       setLoginStatus("success");
