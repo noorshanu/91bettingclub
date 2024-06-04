@@ -7,9 +7,9 @@ export const apiSlice = createApi({
     baseUrl: 'https://game.myclub11.com',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
-  if (token) {
-    headers.headers.Authorization = `Bearer ${token}`;
-  }
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
       return headers;
     }
   }),
@@ -18,10 +18,11 @@ export const apiSlice = createApi({
       query: (credentials) => ({
         url: '/wingo/login',
         method: 'POST',
-        body: credentials
-      })
-    })
-  })
+        body: credentials,
+      }),
+    }),
+    // Add other endpoints here if needed
+  }),
 });
 
 export const { useLoginUserMutation } = apiSlice;

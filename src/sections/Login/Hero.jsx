@@ -1,26 +1,29 @@
-import { useReducer, useState, useEffect } from "react";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
-import { IoPhonePortrait } from "react-icons/io5";
-import { MdMail } from "react-icons/md";
-import { FaLock } from "react-icons/fa6";
-import { FcLock, FcOnlineSupport } from "react-icons/fc";
-import { useLoginUserMutation } from "../../redux/api/apiSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { setToken, clearToken, setUser } from "../../redux/api/UserSlice";
+import { useReducer, useState, useEffect } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import { IoPhonePortrait } from 'react-icons/io5';
+import { MdMail } from 'react-icons/md';
+import { FaLock } from 'react-icons/fa6';
+import { FcLock, FcOnlineSupport } from 'react-icons/fc';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken, clearToken, setUser } from '../../redux/api/UserSlice';
+import { useLoginUserMutation } from '../../redux/api/apiSlice';
+import { Cookies } from 'react-cookie';
+
+const cookies = new Cookies();
 
 const initialState = {
-  username: "",
-  password: "",
+  username: '',
+  password: '',
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "setUsername":
+    case 'setUsername':
       return { ...state, username: action.payload };
-    case "setPassword":
+    case 'setPassword':
       return { ...state, password: action.payload };
-    case "reset":
+    case 'reset':
       return initialState;
     default:
       return state;
@@ -36,25 +39,25 @@ function Hero() {
   const [loginStatus, setLoginStatus] = useState(null);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
+    const storedToken = cookies.get('token');
+    const storedUser = localStorage.getItem('user');
     if (storedToken && storedUser) {
-      console.log('Token found in localStorage:', storedToken);
-      console.log('User found in localStorage:', storedUser);
+      console.log('Token found in cookies:', storedToken);
+      console.log('User found in localStorage:', JSON.parse(storedUser));
       dispatch(setToken(storedToken));
       dispatch(setUser(JSON.parse(storedUser)));
-      setLoginStatus("success");
+      setLoginStatus('success');
     }
   }, [dispatch]);
 
   useEffect(() => {
     if (token) {
-      console.log('Setting token in localStorage:', token);
-      localStorage.setItem("token", token);
-      setLoginStatus("success");
+      console.log('Setting token in cookies:', token);
+      cookies.set('token', token, { path: '/', expires: new Date(Date.now() + 86400000) });
+      setLoginStatus('success');
     } else {
-      console.log('Removing token from localStorage');
-      localStorage.removeItem("token");
+      console.log('Removing token from cookies');
+      cookies.remove('token');
       setLoginStatus(null);
     }
   }, [token]);
@@ -62,19 +65,26 @@ function Hero() {
   const handleLogin = async () => {
     try {
       const { username, password } = state;
-      if (!username || !password) throw new Error("Username and password must be provided");
+      if (!username || !password) throw new Error('Username and password must be provided');
 
       console.log('Attempting to login with username:', username);
 
       const result = await loginUser({ identifier: username, password }).unwrap();
-      console.log('Login successful, received token:', result.token);
-      
-      dispatch(setToken(result.token));
-      dispatch(setUser(result.user));
-      setLoginStatus("success");
+      console.log('API response:', result);
+
+      // Ensure correct extraction of token and user
+      const { jwt: token, user } = result;
+
+      if (!token) {
+        throw new Error('Token not found in the response');
+      }
+
+      dispatch(setToken(token));
+      dispatch(setUser(user));
+      setLoginStatus('success');
     } catch (error) {
-      console.error("Login error:", error);
-      setLoginStatus("error");
+      console.error('Login error:', error);
+      setLoginStatus('error');
     }
   };
 
@@ -82,15 +92,15 @@ function Hero() {
     console.log('Logging out');
     dispatch(clearToken());
     setLoginStatus(null);
-    dispatchLocal({ type: "reset" });
+    dispatchLocal({ type: 'reset' });
   };
 
   return (
     <>
-      {loginStatus === "success" ? (
+      {loginStatus === 'success' ? (
         <div className="text-center py-6">
-          <h1 className="text-2xl font-semibold">Hi , welcome to our website!</h1>
-          <p className="text-xl">Email: </p>
+          <h1 className="text-2xl font-semibold">Hi {state.username}, welcome to our website!</h1>
+          <p className="text-xl">Email: {state.email}</p>
           <button
             onClick={handleLogOut}
             className="bg-black text-white py-2 px-6 text-xl font-semibold rounded-full mt-4"
@@ -134,7 +144,7 @@ function Hero() {
               onClick={handleLogin}
               className="bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center"
             >
-              {loginStatus === "success" ? "Logged In" : "Login"}
+              {loginStatus === 'success' ? 'Logged In' : 'Login'}
             </button>
             <button className="bg-black text-white py-2 px-6 text-xl font-semibold rounded-full w-[350px] text-center">
               Register
@@ -146,7 +156,7 @@ function Hero() {
             <InfoBlock icon={<FcOnlineSupport className="text-xl" />} text="Support" />
           </div>
 
-          {loginStatus === "error" && (
+          {loginStatus === 'error' && (
             <div className="text-center text-red-600 font-semibold mt-4">
               Failed to login. Please try again.
             </div>
@@ -172,10 +182,10 @@ function LoginForm({ state, dispatch, isEmail = false }) {
             )}
           </label>
           <input
-            type={isEmail ? "email" : "text"}
+            type={isEmail ? 'email' : 'text'}
             id="username"
             value={state.username}
-            onChange={(e) => dispatch({ type: "setUsername", payload: e.target.value })}
+            onChange={(e) => dispatch({ type: 'setUsername', payload: e.target.value })}
             className="bg-white py-2 px-4 rounded-full shadow-lg"
           />
         </div>
@@ -187,7 +197,7 @@ function LoginForm({ state, dispatch, isEmail = false }) {
             type="password"
             id="password"
             value={state.password}
-            onChange={(e) => dispatch({ type: "setPassword", payload: e.target.value })}
+            onChange={(e) => dispatch({ type: 'setPassword', payload: e.target.value })}
             className="bg-white py-2 px-4 rounded-full shadow-lg"
           />
         </div>
