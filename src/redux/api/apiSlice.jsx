@@ -6,10 +6,10 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://game.myclub11.com',
     prepareHeaders: (headers) => {
-      const token = Cookies.get('token');
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
+      const token = localStorage.getItem('token');
+  if (token) {
+    headers.headers.Authorization = `Bearer ${token}`;
+  }
       return headers;
     }
   }),

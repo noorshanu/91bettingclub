@@ -7,7 +7,7 @@ import { FaLock } from "react-icons/fa6";
 import { FcLock, FcOnlineSupport } from "react-icons/fc";
 import { useLoginUserMutation } from "../../redux/api/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken, clearToken, setUser } from "../../redux/api/user/userApiSlice";
+import { setToken, clearToken, setUser } from "../../redux/api/UserSlice";
 
 const initialState = {
   username: "",
@@ -32,27 +32,28 @@ function Hero() {
   const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  const user = useSelector((state) => state.user.user); // Fetch user data from state
+  const user = useSelector((state) => state.user.user);
   const [loginStatus, setLoginStatus] = useState(null);
-console.log(token)
-console.log(user)
+
   useEffect(() => {
-    // Check for existing token on component mount
     const storedToken = localStorage.getItem("token");
-    if (storedToken) {
+    const storedUser = localStorage.getItem("user");
+    if (storedToken && storedUser) {
+      console.log('Token found in localStorage:', storedToken);
+      console.log('User found in localStorage:', storedUser);
       dispatch(setToken(storedToken));
+      dispatch(setUser(JSON.parse(storedUser)));
       setLoginStatus("success");
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (token) {
-      // Store token in local storage
+      console.log('Setting token in localStorage:', token);
       localStorage.setItem("token", token);
-      console.log(token)
       setLoginStatus("success");
     } else {
-      // Clear token from local storage on logout
+      console.log('Removing token from localStorage');
       localStorage.removeItem("token");
       setLoginStatus(null);
     }
@@ -63,11 +64,13 @@ console.log(user)
       const { username, password } = state;
       if (!username || !password) throw new Error("Username and password must be provided");
 
+      console.log('Attempting to login with username:', username);
+
       const result = await loginUser({ identifier: username, password }).unwrap();
-      console.log(username , password,token)
-      console.log(result.token)
+      console.log('Login successful, received token:', result.token);
+      
       dispatch(setToken(result.token));
-      dispatch(setUser(result.user)); // Set user data in the Redux state
+      dispatch(setUser(result.user));
       setLoginStatus("success");
     } catch (error) {
       console.error("Login error:", error);
@@ -76,6 +79,7 @@ console.log(user)
   };
 
   const handleLogOut = () => {
+    console.log('Logging out');
     dispatch(clearToken());
     setLoginStatus(null);
     dispatchLocal({ type: "reset" });
@@ -85,8 +89,8 @@ console.log(user)
     <>
       {loginStatus === "success" ? (
         <div className="text-center py-6">
-          <h1 className="text-2xl font-semibold">Hi {state.username}, welcome to our website!</h1>
-          <p className="text-xl">Email: {}</p>
+          <h1 className="text-2xl font-semibold">Hi , welcome to our website!</h1>
+          <p className="text-xl">Email: </p>
           <button
             onClick={handleLogOut}
             className="bg-black text-white py-2 px-6 text-xl font-semibold rounded-full mt-4"
