@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setToken, setRefreshToken, clearToken, setUser } from '../../redux/api/user/userApiSlice';
 import { useLoginUserMutation } from '../../redux/api/apiSlice';
 import { Cookies } from 'react-cookie';
-
 const cookies = new Cookies();
 
 const initialState = {
@@ -42,11 +41,16 @@ function Hero() {
     const storedToken = cookies.get('token');
     const storedUser = localStorage.getItem('user');
     if (storedToken && storedUser) {
-      console.log('Token found in cookies:', storedToken);
-      console.log('User found in localStorage:', JSON.parse(storedUser));
-      dispatch(setToken(storedToken));
-      dispatch(setUser(JSON.parse(storedUser)));
-      setLoginStatus('success');
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        console.log('Token found in cookies:', storedToken);
+        console.log('User found in localStorage:', parsedUser);
+        dispatch(setToken(storedToken));
+        dispatch(setUser(parsedUser));
+        setLoginStatus('success');
+      } catch (error) {
+        console.error('Failed to parse user data from localStorage:', error);
+      }
     }
   }, [dispatch]);
 
@@ -103,8 +107,8 @@ function Hero() {
     <>
       {loginStatus === 'success' ? (
         <div className="text-center py-6">
-          <h1 className="text-2xl font-semibold">Hi {state.username}, welcome to our website!</h1>
-          <p className="text-xl">Email: {state.email}</p>
+          <h1 className="text-2xl font-semibold">Hi {state.username} , welcome to our website!</h1>
+          <p className="text-xl">Email: </p>
           <button
             onClick={handleLogOut}
             className="bg-black text-white py-2 px-6 text-xl font-semibold rounded-full mt-4"
