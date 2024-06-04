@@ -6,7 +6,7 @@ import { MdMail } from 'react-icons/md';
 import { FaLock } from 'react-icons/fa6';
 import { FcLock, FcOnlineSupport } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
-import { setToken, clearToken, setUser } from '../../redux/api/UserSlice';
+import { setToken, setRefreshToken, clearToken, setUser } from '../../redux/api/user/userApiSlice';
 import { useLoginUserMutation } from '../../redux/api/apiSlice';
 import { Cookies } from 'react-cookie';
 
@@ -72,18 +72,20 @@ function Hero() {
       const result = await loginUser({ identifier: username, password }).unwrap();
       console.log('API response:', result);
 
-      // Ensure correct extraction of token and user
-      const { jwt: token, user } = result;
+      // Ensure correct extraction of tokens
+      const { access: token, refresh: refreshToken } = result;
 
-      if (!token) {
+      if (!token || !refreshToken) {
         throw new Error('Token not found in the response');
       }
 
       dispatch(setToken(token));
+      dispatch(setRefreshToken(refreshToken));
       dispatch(setUser(user));
       setLoginStatus('success');
     } catch (error) {
       console.error('Login error:', error);
+      console.error('Error details:', error.data);
       setLoginStatus('error');
     }
   };

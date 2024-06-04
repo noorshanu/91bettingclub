@@ -6,7 +6,8 @@ const cookies = new Cookies();
 
 const initialState = {
   token: cookies.get('token') || null,
-  user: JSON.parse(localStorage.getItem('user')) || null, // Retrieve user from localStorage
+  refreshToken: cookies.get('refreshToken') || null,
+  user: JSON.parse(localStorage.getItem('user')) || null,
   status: 'idle',
   error: null,
 };
@@ -17,28 +18,36 @@ export const userSlice = createSlice({
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload;
-      cookies.set('token', action.payload, { path: '/', expires: new Date(Date.now() + 86400000) }); // Store token in a cookie for 1 day
+      cookies.set('token', action.payload, { path: '/', expires: new Date(Date.now() + 86400000) });
+    },
+    setRefreshToken: (state, action) => {
+      state.refreshToken = action.payload;
+      cookies.set('refreshToken', action.payload, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
     },
     setUser: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem('user', JSON.stringify(action.payload)); // Store user in localStorage
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     clearToken: (state) => {
       state.token = null;
-      state.user = null; // Clear user data
+      state.refreshToken = null;
+      state.user = null;
       cookies.remove('token');
-      localStorage.removeItem('user'); // Remove user from localStorage
-    }
+      cookies.remove('refreshToken');
+      localStorage.removeItem('user');
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(apiSlice.endpoints.loginUser.matchFulfilled, (state, action) => {
       state.token = action.payload.token;
-      state.user = action.payload.user; // Assuming the user data is part of the response
+      state.refreshToken = action.payload.refreshToken; // Assuming refreshToken is part of the response
+      state.user = action.payload.user;
       cookies.set('token', action.payload.token, { path: '/', expires: new Date(Date.now() + 86400000) });
-      localStorage.setItem('user', JSON.stringify(action.payload.user)); // Store user in localStorage
+      cookies.set('refreshToken', action.payload.refreshToken, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
     });
-  }
+  },
 });
 
-export const { setToken, setUser, clearToken } = userSlice.actions;
+export const { setToken, setRefreshToken, setUser, clearToken } = userSlice.actions;
 export default userSlice.reducer;
