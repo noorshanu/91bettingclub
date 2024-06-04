@@ -72,8 +72,8 @@ function Hero() {
       const result = await loginUser({ identifier: username, password }).unwrap();
       console.log('API response:', result);
 
-      // Ensure correct extraction of tokens
-      const { access: token, refresh: refreshToken } = result;
+      // Ensure correct extraction of tokens and user
+      const { access: token, refresh: refreshToken, user } = result;
 
       if (!token || !refreshToken) {
         throw new Error('Token not found in the response');
@@ -82,6 +82,7 @@ function Hero() {
       dispatch(setToken(token));
       dispatch(setRefreshToken(refreshToken));
       dispatch(setUser(user));
+      localStorage.setItem('user', JSON.stringify(user)); // Store user in localStorage
       setLoginStatus('success');
     } catch (error) {
       console.error('Login error:', error);
@@ -93,6 +94,7 @@ function Hero() {
   const handleLogOut = () => {
     console.log('Logging out');
     dispatch(clearToken());
+    localStorage.removeItem('user'); // Remove user from localStorage
     setLoginStatus(null);
     dispatchLocal({ type: 'reset' });
   };
