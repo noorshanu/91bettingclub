@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setToken, setRefreshToken, clearToken, setUser } from '../../redux/api/user/userApiSlice';
 import { useLoginUserMutation } from '../../redux/api/apiSlice';
 import { Cookies } from 'react-cookie';
+
 const cookies = new Cookies();
 
 const initialState = {
@@ -40,7 +41,8 @@ function Hero() {
   useEffect(() => {
     const storedToken = cookies.get('token');
     const storedUser = localStorage.getItem('user');
-    if (storedToken && storedUser) {
+
+    if (storedToken && storedUser && storedUser !== "undefined" && storedUser !== null) {
       try {
         const parsedUser = JSON.parse(storedUser);
         console.log('Token found in cookies:', storedToken);
@@ -50,6 +52,13 @@ function Hero() {
         setLoginStatus('success');
       } catch (error) {
         console.error('Failed to parse user data from localStorage:', error);
+      }
+    } else {
+      if (!storedToken) {
+        console.warn('No token found in cookies.');
+      }
+      if (!storedUser || storedUser === "undefined") {
+        console.warn('No valid user found in localStorage.');
       }
     }
   }, [dispatch]);
@@ -76,7 +85,6 @@ function Hero() {
       const result = await loginUser({ identifier: username, password }).unwrap();
       console.log('API response:', result);
 
-      // Ensure correct extraction of tokens and user
       const { access: token, refresh: refreshToken, user } = result;
 
       if (!token || !refreshToken) {
@@ -86,11 +94,10 @@ function Hero() {
       dispatch(setToken(token));
       dispatch(setRefreshToken(refreshToken));
       dispatch(setUser(user));
-      localStorage.setItem('user', JSON.stringify(user)); // Store user in localStorage
+      localStorage.setItem('user', JSON.stringify(user));
       setLoginStatus('success');
     } catch (error) {
       console.error('Login error:', error);
-      console.error('Error details:', error.data);
       setLoginStatus('error');
     }
   };
@@ -98,7 +105,7 @@ function Hero() {
   const handleLogOut = () => {
     console.log('Logging out');
     dispatch(clearToken());
-    localStorage.removeItem('user'); // Remove user from localStorage
+    localStorage.removeItem('user');
     setLoginStatus(null);
     dispatchLocal({ type: 'reset' });
   };
@@ -107,8 +114,8 @@ function Hero() {
     <>
       {loginStatus === 'success' ? (
         <div className="text-center py-6">
-          <h1 className="text-2xl font-semibold">Hi {state.username} , welcome to our website!</h1>
-          <p className="text-xl">Email: </p>
+          <h1 className="text-2xl font-semibold">Hi {user?.username || state.username}, welcome to our website!</h1>
+          <p className="text-xl">Email: {user?.email}</p>
           <button
             onClick={handleLogOut}
             className="bg-black text-white py-2 px-6 text-xl font-semibold rounded-full mt-4"

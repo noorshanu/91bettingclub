@@ -7,11 +7,21 @@ const cookies = new Cookies();
 const initialState = {
   token: cookies.get('token') || null,
   refreshToken: cookies.get('refreshToken') || null,
-  user: localStorage.getItem("user") === "undefined" ? null : JSON.parse(localStorage.getItem("user")),
+  user: (() => {
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser || storedUser === "undefined") {
+      return null;
+    }
+    try {
+      return JSON.parse(storedUser);
+    } catch (e) {
+      console.error('Failed to parse user data from localStorage:', e);
+      return null;
+    }
+  })(),
   status: 'idle',
   error: null,
 };
-
 export const userSlice = createSlice({
   name: 'user',
   initialState,
