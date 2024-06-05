@@ -7,7 +7,7 @@ const cookies = new Cookies();
 const initialState = {
   token: cookies.get('token') || null,
   refreshToken: cookies.get('refreshToken') || null,
-  user: JSON.parse(localStorage.getItem('user')) || null,
+  user: localStorage.getItem("user") === "undefined" ? null : JSON.parse(localStorage.getItem("user")),
   status: 'idle',
   error: null,
 };
