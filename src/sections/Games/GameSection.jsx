@@ -37,7 +37,7 @@ function GameSection() {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': "IEpkuek3WGbQVlcBNYvwsGZf4sf70bF8",
+            'X-CSRFToken': csrfToken,
           }
         }
       );

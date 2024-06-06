@@ -10,18 +10,18 @@ const BalancePopup = ({ name }) => {
   useEffect(() => {
     const tot = calculateTotal(selectedBalance, quantity);
     setTotalAmount(tot);
-    console.log("Total Amount(useEffect): ", tot);
+    // console.log("Total Amount(useEffect): ", tot);
   }, [selectedBalance, quantity]);
 
   const handleBalanceChange = (balance) => {
     setSelectedBalance(balance);
-    console.log("Selected Balance: ", balance);
+    // console.log("Selected Balance: ", balance);
   };
 
   const handleQuantityChange = (event) => {
     const value = parseInt(event.target.value, 10);
     setQuantity(value);
-    console.log("Selected Quantity: ", value);
+    // console.log("Selected Quantity: ", value);
   };
 
   const calculateTotal = (balance, qty) => {
@@ -38,16 +38,29 @@ const BalancePopup = ({ name }) => {
 
   const betApi = async () => {
     console.log("Bet API hitted");
+    console.log(name)
+
+    if(name === "Green"){
+      name = 1
+    } else if(name === "Red"){
+      name = 2
+    } else if(name === "Violet"){
+      name = 3
+    } 
+
+
+    console.log(totalAmount)
     const url = "https://game.myclub11.com/random_gen/";
     const data = {
       digit: name,
       amount: totalAmount
     };
+    console.log(data) // error while sending data
     try {
       const response = await axios.post(url, data);
       console.log('Data sent successfully:', response.data);
     } catch (error) {
-      console.error('Error sending data:', error);
+      console.error('Error sending data:', error);  
     }
   };
 
