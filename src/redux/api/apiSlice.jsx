@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Cookies } from 'react-cookie';
+import { setToken, setRefreshToken, clearToken } from './user/userApiSlice'; // Update the path accordingly
 
 const cookies = new Cookies();
 
@@ -18,29 +19,43 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
+    console.warn('Token expired, attempting to refresh');
+
     // Attempt to refresh the token
-    const refreshResult = await baseQuery(
-      {
-        url: '/wingo/token/refresh/',
-        method: 'POST',
-        body: { refresh: cookies.get('refreshToken') },
-      },
-      api,
-      extraOptions
-    );
+    const refreshToken = cookies.get('refreshToken');
+    if (refreshToken) {
+      const refreshResult = await baseQuery(
+        {
+          url: '/wingo/token/refresh/',
+          method: 'POST',
+          body: { refresh: refreshToken },
+        },
+        api,
+        extraOptions
+      );
 
-    if (refreshResult.data) {
-      // Store the new token
-      const { access: newToken, refresh: newRefreshToken } = refreshResult.data;
-      api.dispatch(setToken(newToken));
-      cookies.set('token', newToken, { path: '/', expires: new Date(Date.now() + 86400000) });
-      if (newRefreshToken) {
-        cookies.set('refreshToken', newRefreshToken, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
+      if (refreshResult.data) {
+        const { access: newToken, refresh: newRefreshToken } = refreshResult.data;
+        
+        // Store the new tokens
+        api.dispatch(setToken(newToken));
+        cookies.set('token', newToken, { path: '/', expires: new Date(Date.now() + 86400000) });
+
+        if (newRefreshToken) {
+          api.dispatch(setRefreshToken(newRefreshToken));
+          cookies.set('refreshToken', newRefreshToken, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
+        }
+
+        // Retry the original query with the new token
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        console.error('Failed to refresh token:', refreshResult.error);
+        api.dispatch(clearToken());
+        cookies.remove('token');
+        cookies.remove('refreshToken');
       }
-
-      // Retry the original query with the new token
-      result = await baseQuery(args, api, extraOptions);
     } else {
+      console.error('No refresh token available');
       api.dispatch(clearToken());
       cookies.remove('token');
       cookies.remove('refreshToken');

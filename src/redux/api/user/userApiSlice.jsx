@@ -22,6 +22,7 @@ const initialState = {
   status: 'idle',
   error: null,
 };
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -49,12 +50,13 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(apiSlice.endpoints.loginUser.matchFulfilled, (state, action) => {
-      state.token = action.payload.token;
-      state.refreshToken = action.payload.refreshToken; // Assuming refreshToken is part of the response
-      state.user = action.payload.user;
-      cookies.set('token', action.payload.token, { path: '/', expires: new Date(Date.now() + 86400000) });
-      cookies.set('refreshToken', action.payload.refreshToken, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      const { token, refreshToken, user } = action.payload;
+      state.token = token;
+      state.refreshToken = refreshToken; // Assuming refreshToken is part of the response
+      state.user = user;
+      cookies.set('token', token, { path: '/', expires: new Date(Date.now() + 86400000) });
+      cookies.set('refreshToken', refreshToken, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
+      localStorage.setItem('user', JSON.stringify(user));
     });
   },
 });

@@ -41,7 +41,7 @@ function Hero() {
   useEffect(() => {
     const storedToken = cookies.get('token');
     const storedUser = localStorage.getItem('user');
-
+  
     if (storedToken && storedUser && storedUser !== "undefined" && storedUser !== null) {
       try {
         const parsedUser = JSON.parse(storedUser);
@@ -57,7 +57,7 @@ function Hero() {
       if (!storedToken) {
         console.warn('No token found in cookies.');
       }
-      if (!storedUser || storedUser === "undefined") {
+      if (!storedUser || storedUser === "undefined" || storedUser === null) {
         console.warn('No valid user found in localStorage.');
       }
     }
@@ -79,18 +79,18 @@ function Hero() {
     try {
       const { username, password } = state;
       if (!username || !password) throw new Error('Username and password must be provided');
-
+  
       console.log('Attempting to login with username:', username);
-
+  
       const result = await loginUser({ identifier: username, password }).unwrap();
       console.log('API response:', result);
-
+  
       const { access: token, refresh: refreshToken, user } = result;
-
+  
       if (!token || !refreshToken) {
         throw new Error('Token not found in the response');
       }
-
+  
       dispatch(setToken(token));
       dispatch(setRefreshToken(refreshToken));
       dispatch(setUser(user));
