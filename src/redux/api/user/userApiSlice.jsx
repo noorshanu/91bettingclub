@@ -9,6 +9,7 @@ const initialState = {
   refreshToken: cookies.get('refreshToken') || null,
   user: (() => {
     const storedUser = localStorage.getItem("user");
+    console.log(storedUser)
     if (!storedUser || storedUser === "undefined") {
       return null;
     }

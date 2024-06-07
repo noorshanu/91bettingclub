@@ -37,29 +37,41 @@ function Hero() {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const [loginStatus, setLoginStatus] = useState(null);
-
   useEffect(() => {
     const storedToken = cookies.get('token');
     const storedUser = localStorage.getItem('user');
   
-    if (storedToken && storedUser && storedUser !== "undefined" && storedUser !== null) {
+    if (storedToken && storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        console.log('Token found in cookies:', storedToken);
-        console.log('User found in localStorage:', parsedUser);
-        dispatch(setToken(storedToken));
-        dispatch(setUser(parsedUser));
-        setLoginStatus('success');
+  
+        if (parsedUser && typeof parsedUser === 'object') {
+          console.log('Token found in cookies:', storedToken);
+          console.log('User found in localStorage:', parsedUser);
+          dispatch(setToken(storedToken));
+          dispatch(setUser(parsedUser));
+          setLoginStatus('success');
+        } else {
+          console.warn('Parsed user is not a valid object:', parsedUser);
+          localStorage.removeItem('user');
+          setLoginStatus(null);
+        }
+  
       } catch (error) {
         console.error('Failed to parse user data from localStorage:', error);
+        localStorage.removeItem('user');
+        setLoginStatus(null);
       }
     } else {
       if (!storedToken) {
         console.warn('No token found in cookies.');
       }
-      if (!storedUser || storedUser === "undefined" || storedUser === null) {
-        console.warn('No valid user found in localStorage.');
+      if (!storedUser) {
+        console.warn('No user found in localStorage.');
+      } else {
+        console.warn('User in localStorage is invalid.');
       }
+      setLoginStatus(null);
     }
   }, [dispatch]);
 
