@@ -1,3 +1,4 @@
+// apiSlice.js
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Cookies } from 'react-cookie';
 import { setToken, setRefreshToken, clearToken } from './user/userApiSlice'; // Update the path accordingly
@@ -21,7 +22,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   if (result.error && result.error.status === 401) {
     console.warn('Token expired, attempting to refresh');
 
-    // Attempt to refresh the token
     const refreshToken = cookies.get('refreshToken');
     if (refreshToken) {
       const refreshResult = await baseQuery(
@@ -36,17 +36,17 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
       if (refreshResult.data) {
         const { access: newToken, refresh: newRefreshToken } = refreshResult.data;
-        
-        // Store the new tokens
+
+        console.log('New token acquired:', newToken);
         api.dispatch(setToken(newToken));
-        cookies.set('token', newToken, { path: '/', expires: new Date(Date.now() + 86400000) });
+        cookies.set('token', newToken, { path: '/', expires: new Date(Date.now() + 4 * 60 * 60 * 1000) });
 
         if (newRefreshToken) {
+          console.log('New refresh token acquired:', newRefreshToken);
           api.dispatch(setRefreshToken(newRefreshToken));
-          cookies.set('refreshToken', newRefreshToken, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
+          cookies.set('refreshToken', newRefreshToken, { path: '/', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
         }
 
-        // Retry the original query with the new token
         result = await baseQuery(args, api, extraOptions);
       } else {
         console.error('Failed to refresh token:', refreshResult.error);
@@ -76,6 +76,7 @@ export const apiSlice = createApi({
         body: credentials,
       }),
     }),
+    // Other endpoints can be added here
   }),
 });
 

@@ -1,3 +1,4 @@
+// userApiSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../apiSlice';
 import { Cookies } from 'react-cookie';
@@ -9,12 +10,13 @@ const initialState = {
   refreshToken: cookies.get('refreshToken') || null,
   user: (() => {
     const storedUser = localStorage.getItem("user");
-    console.log(storedUser)
     if (!storedUser || storedUser === "undefined") {
       return null;
     }
     try {
-      return JSON.parse(storedUser);
+      const parsedUser = JSON.parse(storedUser);
+      console.log('Parsed user from localStorage:', parsedUser);
+      return parsedUser;
     } catch (e) {
       console.error('Failed to parse user data from localStorage:', e);
       return null;
@@ -29,18 +31,30 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action) => {
+      console.log('Setting token:', action.payload);
       state.token = action.payload;
-      cookies.set('token', action.payload, { path: '/', expires: new Date(Date.now() + 86400000) });
+      cookies.set('token', action.payload, { path: '/', expires: new Date(Date.now() + 4 * 60 * 60 * 1000) });
     },
     setRefreshToken: (state, action) => {
+      console.log('Setting refresh token:', action.payload);
       state.refreshToken = action.payload;
-      cookies.set('refreshToken', action.payload, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
+      cookies.set('refreshToken', action.payload, { path: '/', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
     },
     setUser: (state, action) => {
+      console.log('Setting user:', action.payload);
+      if (!action.payload) {
+        console.error('User payload is null or undefined');
+        return;
+      }
       state.user = action.payload;
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      try {
+        localStorage.setItem('user', JSON.stringify(action.payload));
+      } catch (e) {
+        console.error('Failed to save user to localStorage:', e);
+      }
     },
     clearToken: (state) => {
+      console.log('Clearing tokens and user data');
       state.token = null;
       state.refreshToken = null;
       state.user = null;
@@ -51,13 +65,27 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(apiSlice.endpoints.loginUser.matchFulfilled, (state, action) => {
-      const { token, refreshToken, user } = action.payload;
-      state.token = token;
-      state.refreshToken = refreshToken; // Assuming refreshToken is part of the response
+      console.log('Login user fulfilled payload:', action.payload);
+      const { access, refresh, user } = action.payload;
+      if (!access || !refresh || !user) {
+        console.error('Login user fulfilled payload is missing access, refresh, or user:', action.payload);
+        return;
+      }
+      state.token = access;
+      state.refreshToken = refresh;
       state.user = user;
-      cookies.set('token', token, { path: '/', expires: new Date(Date.now() + 86400000) });
-      cookies.set('refreshToken', refreshToken, { path: '/', expires: new Date(Date.now() + 86400000 * 7) });
-      localStorage.setItem('user', JSON.stringify(user));
+      cookies.set('token', access, { path: '/', expires: new Date(Date.now() + 4 * 60 * 60 * 1000) });
+      cookies.set('refreshToken', refresh, { path: '/', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
+      try {
+        localStorage.setItem('user', JSON.stringify(user));
+      } catch (e) {
+        console.error('Failed to save user to localStorage:', e);
+      }
+    });
+    builder.addMatcher(apiSlice.endpoints.loginUser.matchRejected, (state, action) => {
+      console.error('Login user rejected:', action.error);
+      state.status = 'failed';
+      state.error = action.error;
     });
   },
 });
