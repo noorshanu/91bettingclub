@@ -1,4 +1,5 @@
-import { useReducer, useState } from 'react';
+// Hero.js
+import React, { useReducer, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { IoPhonePortrait } from 'react-icons/io5';

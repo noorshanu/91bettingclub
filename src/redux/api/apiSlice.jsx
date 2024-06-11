@@ -47,6 +47,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
           cookies.set('refreshToken', newRefreshToken, { path: '/', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
         }
 
+        // Retry the original query with the new token
         result = await baseQuery(args, api, extraOptions);
       } else {
         console.error('Failed to refresh token:', refreshResult.error);
