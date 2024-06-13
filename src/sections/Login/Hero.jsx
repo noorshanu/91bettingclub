@@ -1,4 +1,3 @@
-// Hero.js
 import React, { useReducer, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -48,7 +47,8 @@ const Hero = () => {
         throw new Error('API response is missing access, refresh, or user');
       }
 
-      login(result.access, result.refresh, result.user);
+      const csrfToken = result.csrfToken || null;  // Assuming the API returns a csrfToken field
+      login(result.access, result.refresh, result.user, csrfToken);
       setLoginStatus('success');
     } catch (error) {
       console.error('Login error:', error);

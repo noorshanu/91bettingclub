@@ -1,4 +1,3 @@
-// userApiSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../apiSlice';
 import { Cookies } from 'react-cookie';
@@ -6,11 +5,11 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
 const initialState = {
-  token: cookies.get('token') || null,
-  refreshToken: cookies.get('refreshToken') || null,
+  token: cookies.get('token') || localStorage.getItem('token') || null,
+  refreshToken: cookies.get('refreshToken') || localStorage.getItem('refreshToken') || null,
   user: (() => {
-    const storedUser = localStorage.getItem("user");
-    if (!storedUser || storedUser === "undefined") {
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser || storedUser === 'undefined') {
       return null;
     }
     try {
@@ -34,11 +33,13 @@ export const userSlice = createSlice({
       console.log('Setting token:', action.payload);
       state.token = action.payload;
       cookies.set('token', action.payload, { path: '/', expires: new Date(Date.now() + 4 * 60 * 60 * 1000) });
+      localStorage.setItem('token', action.payload);
     },
     setRefreshToken: (state, action) => {
       console.log('Setting refresh token:', action.payload);
       state.refreshToken = action.payload;
       cookies.set('refreshToken', action.payload, { path: '/', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
+      localStorage.setItem('refreshToken', action.payload);
     },
     setUser: (state, action) => {
       console.log('Setting user:', action.payload);
@@ -61,6 +62,8 @@ export const userSlice = createSlice({
       cookies.remove('token');
       cookies.remove('refreshToken');
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
     },
   },
   extraReducers: (builder) => {
@@ -78,6 +81,8 @@ export const userSlice = createSlice({
       cookies.set('refreshToken', refresh, { path: '/', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
       try {
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', access);
+        localStorage.setItem('refreshToken', refresh);
       } catch (e) {
         console.error('Failed to save user to localStorage:', e);
       }

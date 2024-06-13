@@ -1,4 +1,3 @@
-// AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Cookies } from 'react-cookie';
@@ -14,9 +13,15 @@ export const AuthProvider = ({ children }) => {
   const cookies = new Cookies();
 
   useEffect(() => {
-    const token = cookies.get('token');
-    const refreshToken = cookies.get('refreshToken');
+    const token = cookies.get('token') || localStorage.getItem('token');
+    const refreshToken = cookies.get('refreshToken') || localStorage.getItem('refreshToken');
     const storedUser = localStorage.getItem('user');
+    const csrfToken = localStorage.getItem('csrfToken');
+
+    console.log('AuthProvider useEffect - token:', token);
+    console.log('AuthProvider useEffect - refreshToken:', refreshToken);
+    console.log('AuthProvider useEffect - storedUser:', storedUser);
+    console.log('AuthProvider useEffect - csrfToken:', csrfToken);
 
     if (token && refreshToken && storedUser) {
       const user = JSON.parse(storedUser);
@@ -24,12 +29,17 @@ export const AuthProvider = ({ children }) => {
       dispatch(setRefreshToken(refreshToken));
       dispatch(setUser(user));
       setIsAuthenticated(true);
+      console.log('User authenticated:', user);
     } else {
       setIsAuthenticated(false);
     }
   }, [dispatch]);
 
-  const login = (token, refreshToken, user) => {
+  useEffect(() => {
+    console.log('isAuthenticated updated:', isAuthenticated);
+  }, [isAuthenticated]);
+
+  const login = (token, refreshToken, user, csrfToken) => {
     dispatch(setToken(token));
     dispatch(setRefreshToken(refreshToken));
     dispatch(setUser(user));
@@ -39,7 +49,14 @@ export const AuthProvider = ({ children }) => {
     cookies.set('token', token, { path: '/', expires: tokenExpiration });
     cookies.set('refreshToken', refreshToken, { path: '/', expires: refreshTokenExpiration });
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', token);
+    localStorage.setItem('refreshToken', refreshToken);
+    if (csrfToken) {
+      localStorage.setItem('csrfToken', csrfToken);
+      console.log('CSRF token saved:', csrfToken);
+    }
     setIsAuthenticated(true);
+    console.log('User logged in:', user);
   };
 
   const logout = () => {
@@ -47,7 +64,11 @@ export const AuthProvider = ({ children }) => {
     cookies.remove('token');
     cookies.remove('refreshToken');
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('csrfToken');
     setIsAuthenticated(false);
+    console.log('User logged out');
   };
 
   return (

@@ -1,14 +1,14 @@
-import { Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home";
-import Login from "./Pages/Login";
-import SignUp from "./Pages/SignUp";
-import WinGo from "./sections/Games/WinGo";
-import Activity from "./Pages/Activity";
-import Promotion from "./Pages/Promotion";
-import Wallet from "./Pages/Wallet";
-import Account from "./Pages/Account";
-import ProtectedRoute from "./ProtectedRoute";
-import { AuthProvider } from "./AuthContext";
+import { Route, Routes } from 'react-router-dom';
+import Home from './Pages/Home';
+import Login from './Pages/Login';
+import SignUp from './Pages/SignUp';
+import WinGo from './sections/Games/WinGo';
+import Activity from './Pages/Activity';
+import Promotion from './Pages/Promotion';
+import Wallet from './Pages/Wallet';
+import Account from './Pages/Account';
+import ProtectedRoute from './ProtectedRoute';
+import { AuthProvider } from './AuthContext';
 
 function App() {
   return (
