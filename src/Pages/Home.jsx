@@ -11,6 +11,7 @@ import Gamesecs from "../sections/Gamesecs";
 function Home() {
   return (
     <>
+      <section className=" pb-20 bg-[#ecedf4]">
       <div className=" bg-[#ecedf4] ">
         <div>
           <Navbar />
@@ -39,6 +40,7 @@ function Home() {
           <Footer />
         </div>
       </div>
+      </section>
     </>
   );
 }

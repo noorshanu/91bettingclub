@@ -6,7 +6,7 @@ import Footer from "../sections/Footer";
 function Login() {
   return (
     <>
-      <div className=" bg-[#ecedf4] ">
+      <div className=" bg-[#ecedf4]   ">
         <div>
           <Navbar />
         </div>

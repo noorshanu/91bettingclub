@@ -14,7 +14,7 @@ function Footer() {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
-      className=" fixed bottom-0 left-0 right-0 mx-auto rounded-t-[40px] w-full sm:w-[500px] pt-3  "
+      className=" fixed bottom-0 left-0 right-0 mx-auto rounded-t-[40px] w-full sm:w-[480px]  h-auto pt-3  "
     >
       <div className=" flex justify-center items-center gap-10 px-4">
         <div className=" flex justify-center flex-col text-center">

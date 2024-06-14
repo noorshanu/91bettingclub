@@ -40,7 +40,7 @@ body {
   justify-items: center;
   width: 100%;
   height: 3.33333rem;
-  z-index: 1;
+  z-index: 0;
   margin-bottom: -0.2rem;
   background: url(/public/images/stage-f0b7a560.png) no-repeat center center /
     100% 100%;

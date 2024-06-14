@@ -25,8 +25,20 @@ function Header() {
         <div className="flex items-center gap-4 mt-4">
           {user ? (
             <>
-              <h2 className="text-white text-lg">{user}</h2>
-              <span className="text-gray-400 text-sm">{user.email}</span>
+              <div className=' flex justify-start gap-4 items-center'>
+
+                <img src="images/avatar.png" alt=""  className=' rounded-full border-2 h-[100px] w-auto'/>
+                <div>
+                <h2 className="text-white text-xl font-semibold mb-1">{user}</h2>
+
+                <p className=' text-white text-base'>
+                  UID | 234245
+                </p>
+
+                </div>
+
+              </div>
+            
             </>
           ) : (
             <a href="/login" className="text-white text-lg">Please login</a>
