@@ -151,7 +151,7 @@ function GameSection() {
 
       <div className="bg-[#eeeeee] border border-[#fe5444] rounded-3xl p-2 my-2 w-full">
         <div className="grid grid-cols-5 gap-2 mx-auto px-8 py-1">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(10)].map((_, i) => (
             <div key={i} onClick={() => <BalancePopup name="Green" />}>
               <img
                 src={`images/ball/ball${i + 1}.png`}
