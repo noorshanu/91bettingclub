@@ -6,9 +6,11 @@ import axios from "axios";
 import HowToPlay from "./HowToPlay";
 import GameHistory from "./GameHistory";
 import BalancePopup from "./Pop";
-import betApi from "./Pop";
-
-import { getCookie } from "./utils"; // Import the utility function
+import {
+  getAccessToken,
+  setAuthHeader,
+  refreshAccessToken,
+} from "./utils"; // Import the utility functions
 
 function GameSection() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -17,37 +19,51 @@ function GameSection() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [csrfToken, setCsrfToken] = useState('');
 
   const tabDurations = [1, 3, 5, 10];
-
-  useEffect(() => {
-    const token = getCookie('csrftoken'); // Get the CSRF token from cookies
-    setCsrfToken(token);
-  }, []);
 
   const fetchGameData = async () => {
     setLoading(true);
     setError(null);
+
     try {
       const response = await axios.post(
         'https://game.myclub11.com/wingo/random_gen/',
         {},
         {
           withCredentials: true,
-          headers: {
+          headers: setAuthHeader({
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
-          }
+          }),
         }
       );
       setData(response.data);
       console.log(response.data);
     } catch (error) {
-      setError('An error occurred while fetching the data.');
-      if (error.response && error.response.status === 403) {
-        console.error('Error 403: Forbidden. Check your authentication credentials and permissions.');
+      if (error.response && error.response.status === 401) {
+        try {
+          // Refresh the access token
+          const newAccessToken = await refreshAccessToken();
+          // Retry the original request with the new access token
+          const retryResponse = await axios.post(
+            'https://game.myclub11.com/wingo/random_gen/',
+            {},
+            {
+              withCredentials: true,
+              headers: setAuthHeader({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${newAccessToken}`,
+              }),
+            }
+          );
+          setData(retryResponse.data);
+          console.log(retryResponse.data);
+        } catch (refreshError) {
+          setError('Failed to refresh access token.');
+          console.error('Error refreshing access token:', refreshError);
+        }
       } else {
+        setError('An error occurred while fetching the data.');
         console.error('Error fetching data:', error);
       }
     } finally {
@@ -73,7 +89,7 @@ function GameSection() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [minutes, seconds, selectedTab, csrfToken]);
+  }, [minutes, seconds, selectedTab]);
 
   const handleTabSelect = (index) => {
     if (selectedTab !== index) {

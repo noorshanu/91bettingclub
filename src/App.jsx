@@ -17,12 +17,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/wingo" element={<WinGo />} />
-        <Route path="/activity" element={<Activity />} />
-        <Route path="/promotion" element={<Promotion />} />
+     
+   
         <Route element={<ProtectedRoute />}>
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/main" element={<Account />} />
+          <Route path="/wingo" element={<WinGo />} />
+          <Route path="/activity" element={<Activity />} />
+          <Route path="/promotion" element={<Promotion />} />
         </Route>
       </Routes>
     </AuthProvider>
