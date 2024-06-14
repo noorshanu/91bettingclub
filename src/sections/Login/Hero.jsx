@@ -29,7 +29,7 @@ const reducer = (state, action) => {
 const Hero = () => {
   const [state, dispatchLocal] = useReducer(reducer, initialState);
   const [loginUser] = useLoginUserMutation();
-  const { isAuthenticated, login, logout } = useAuth();
+  const { isAuthenticated, user, login, logout } = useAuth();
   const [loginStatus, setLoginStatus] = useState(null);
 
   const handleLogin = async () => {
@@ -47,8 +47,7 @@ const Hero = () => {
         throw new Error('API response is missing access, refresh, or user');
       }
 
-      const csrfToken = result.csrfToken || null;  // Assuming the API returns a csrfToken field
-      login(result.access, result.refresh, result.user, csrfToken);
+      login(result.access, result.refresh, result.user);
       setLoginStatus('success');
     } catch (error) {
       console.error('Login error:', error);
@@ -66,7 +65,7 @@ const Hero = () => {
     <>
       {isAuthenticated ? (
         <div className="text-center py-6">
-          <h1 className="text-2xl font-semibold">Hi, welcome to our website!</h1>
+          <h1 className="text-2xl font-semibold">Hi, {user}, welcome to our website!</h1>
           <button
             onClick={handleLogOut}
             className="bg-black text-white py-2 px-6 text-xl font-semibold rounded-full mt-4"
