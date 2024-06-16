@@ -20,21 +20,21 @@ const Wallet = () => {
   const handlePayment = () => {
     console.log('Initializing payment process');
     const options = {
-      key: "YOUR_KEY_ID", // Enter the Key ID generated from the Dashboard
-      amount: "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      key: "rzp_test_HnG4HT3y1qEzs1", // Enter the Key ID generated from the Dashboard
+      amount: "1000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: "INR",
-      name: "Acme Corp", // your business name
+      name: "myclub11", // your business name
       description: "Test Transaction",
-      image: "https://example.com/your_logo",
-      order_id: "order_9A33XWu170gUtm", // This is a sample Order ID. Pass the id obtained in the response of Step 1
-      callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+      image: "https://www.myclub11.com/images/logo.png",
+      order_id: "order_OMyUeEok7ID0Z1", // This is a sample Order ID. Pass the id obtained in the response of Step 1
+      callback_url: "https://www.myclub11.com/",
       prefill: { // We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
         name: "Gaurav Kumar", // your customer's name
         email: "gaurav.kumar@example.com",
         contact: "9000090000" // Provide the customer's phone number for better conversion rates 
       },
       notes: {
-        address: "Razorpay Corporate Office"
+        address: " Corporate Office"
       },
       theme: {
         color: "#3399cc"
@@ -57,7 +57,7 @@ const Wallet = () => {
   };
 
   return (
-    <div className="bg-[#ecedf4]">
+    <div className="bg-[#ecedf4] pb-8">
       <div className="bg-[#ecedf4]">
         <div className="w-100 font-serif">
           <div className="w-[500px] mx-auto h-[50px] px-4 py-3 bg-gradient-to-r from-[#F95A59] to-[#FF998D] fixed top-0 left-1/2 transform -translate-x-1/2 z-[100]">
@@ -165,7 +165,7 @@ const Wallet = () => {
                   style={{
                     background: "linear-gradient(180deg, #ff867a 0%, #f95959 100%)",
                   }}
-                  onClick={handlePayment}
+                 
                 >
                   MAIN WALLET TRANSFER
                 </button>
@@ -178,7 +178,7 @@ const Wallet = () => {
                   >
                     <img className="w-12" src="/images/deposit-wallet.png" alt="Deposit Wallet" />
                   </div>
-                  <div className="text-black text-sm my-1">Deposit</div>
+                  <button  onClick={handlePayment} className="text-black text-sm my-1">Deposit</button>
                 </div>
 
                 <div className="flex flex-col items-center">
