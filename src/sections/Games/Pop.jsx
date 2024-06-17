@@ -10,26 +10,21 @@ const BalancePopup = ({ name }) => {
   useEffect(() => {
     const tot = calculateTotal(selectedBalance, quantity);
     setTotalAmount(tot);
-    // console.log("Total Amount(useEffect): ", tot);
   }, [selectedBalance, quantity]);
 
   const handleBalanceChange = (balance) => {
     setSelectedBalance(balance);
-    // console.log("Selected Balance: ", balance);
   };
 
   const handleQuantityChange = (event) => {
     const value = parseInt(event.target.value, 10);
-    setQuantity(value);
-    // console.log("Selected Quantity: ", value);
+    if (!isNaN(value) && value > 0) {
+      setQuantity(value);
+    }
   };
 
   const calculateTotal = (balance, qty) => {
-    const total = balance * qty;
-    console.log("Quantity = ", qty); // ok
-    console.log("SelectedBalance = ", balance); // ok
-    console.log("Prod = ", qty * balance); // ok
-    return total;
+    return balance * qty;
   };
 
   const togglePopup = () => {
@@ -38,29 +33,35 @@ const BalancePopup = ({ name }) => {
 
   const betApi = async () => {
     console.log("Bet API hitted");
-    console.log(name)
+    console.log(name);
 
-    if(name === "Green"){
-      name = 1
-    } else if(name === "Red"){
-      name = 2
-    } else if(name === "Violet"){
-      name = 3
-    } 
+    let digit;
+    if (name === "Green") {
+      digit = 1;
+    } else if (name === "Red") {
+      digit = 2;
+    } else if (name === "Violet") {
+      digit = 3;
+    }
 
-
-    console.log(totalAmount)
     const url = "https://game.myclub11.com/random_gen/";
     const data = {
-      digit: name,
+      digit: digit,
       amount: totalAmount
     };
-    console.log(data) // error while sending data
+
+    // Assuming you have a function to get the access token
+    const accessToken = getAccessToken(); // Replace with your actual method to get the token
+
     try {
-      const response = await axios.post(url, data);
+      const response = await axios.post(url, data, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
       console.log('Data sent successfully:', response.data);
     } catch (error) {
-      console.error('Error sending data:', error);  
+      console.error('Error sending data:', error);
     }
   };
 
