@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { setAuthHeader, refreshAccessToken } from './utils'; // Import the utility functions
 
 const BalancePopup = ({ name }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedBalance, setSelectedBalance] = useState(1);
   const [quantity, setQuantity] = useState(1);
   const [totalAmount, setTotalAmount] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null); // Add error state
 
   useEffect(() => {
     const tot = calculateTotal(selectedBalance, quantity);
@@ -32,7 +35,9 @@ const BalancePopup = ({ name }) => {
   };
 
   const betApi = async () => {
-    console.log("Bet API hitted");
+    setLoading(true);
+    setError(null); // Reset error state
+    console.log("Bet API hit");
     console.log(name);
 
     let digit;
@@ -44,24 +49,46 @@ const BalancePopup = ({ name }) => {
       digit = 3;
     }
 
-    const url = "https://game.myclub11.com/random_gen/";
+    const url = "https://game.myclub11.com/wingo/random_gen/";
     const data = {
       digit: digit,
-      amount: totalAmount
+      amount: totalAmount,
     };
-
-    // Assuming you have a function to get the access token
-    const accessToken = getAccessToken(); // Replace with your actual method to get the token
 
     try {
       const response = await axios.post(url, data, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
+        withCredentials: true,
+        headers: setAuthHeader({ 'Content-Type': 'application/json' }),
       });
       console.log('Data sent successfully:', response.data);
     } catch (error) {
-      console.error('Error sending data:', error);
+      if (error.response && error.response.status === 401) {
+        try {
+          // Refresh the access token
+          const newAccessToken = await refreshAccessToken();
+          // Retry the original request with the new access token
+          const retryResponse = await axios.post(
+            url,
+            data,
+            {
+              withCredentials: true,
+              headers: setAuthHeader({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${newAccessToken}`,
+              }),
+            }
+          );
+          console.log('Data sent successfully on retry:', retryResponse.data);
+        } catch (refreshError) {
+          setError('Failed to refresh access token.');
+          console.error('Error refreshing access token:', refreshError);
+        }
+      } else {
+        setError('An error occurred while sending the data.');
+        console.error('Error sending data:', error);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -119,11 +146,13 @@ const BalancePopup = ({ name }) => {
               </button>
               <button
                 onClick={betApi}
-                className="bg-blue-500 text-white p-2 rounded font-semibold hover:bg-blue-700"
+                disabled={loading}
+                className={`bg-blue-500 text-white p-2 rounded font-semibold hover:bg-blue-700 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
               >
                 Confirm
               </button>
             </div>
+            {error && <p className="text-red-500 mt-2">{error}</p>}
           </div>
         </div>
       )}
