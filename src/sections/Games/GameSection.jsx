@@ -19,6 +19,7 @@ function GameSection() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [history, setHistory] = useState([]);
 
   const tabDurations = [1, 3, 5, 10];
 
@@ -39,6 +40,7 @@ function GameSection() {
       );
       setData(response.data);
       console.log(response.data);
+      setHistory((prevHistory) => [response.data, ...prevHistory]); // Update history with new data
     } catch (error) {
       if (error.response && error.response.status === 401) {
         try {
@@ -58,6 +60,7 @@ function GameSection() {
           );
           setData(retryResponse.data);
           console.log(retryResponse.data);
+          setHistory((prevHistory) => [retryResponse.data, ...prevHistory]); // Update history with new data
         } catch (refreshError) {
           setError('Failed to refresh access token.');
           console.error('Error refreshing access token:', refreshError);
@@ -175,7 +178,7 @@ function GameSection() {
           ))}
         </div>
         <div className="mt-4">
-          <GameHistory />
+          <GameHistory history={history} /> {/* Pass history data to GameHistory */}
         </div>
       </div>
 
