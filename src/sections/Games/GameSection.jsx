@@ -19,7 +19,10 @@ function GameSection() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState(() => {
+    const savedHistory = localStorage.getItem("gameHistory");
+    return savedHistory ? JSON.parse(savedHistory) : [];
+  });
 
   const tabDurations = [1, 3, 5, 10];
 
@@ -40,7 +43,9 @@ function GameSection() {
       );
       setData(response.data);
       console.log(response.data);
-      setHistory((prevHistory) => [response.data, ...prevHistory]); // Update history with new data
+      const newHistory = [response.data, ...history];
+      setHistory(newHistory);
+      localStorage.setItem("gameHistory", JSON.stringify(newHistory)); // Save to localStorage
     } catch (error) {
       if (error.response && error.response.status === 401) {
         try {
@@ -60,7 +65,9 @@ function GameSection() {
           );
           setData(retryResponse.data);
           console.log(retryResponse.data);
-          setHistory((prevHistory) => [retryResponse.data, ...prevHistory]); // Update history with new data
+          const newHistory = [retryResponse.data, ...history];
+          setHistory(newHistory);
+          localStorage.setItem("gameHistory", JSON.stringify(newHistory)); // Save to localStorage
         } catch (refreshError) {
           setError('Failed to refresh access token.');
           console.error('Error refreshing access token:', refreshError);
